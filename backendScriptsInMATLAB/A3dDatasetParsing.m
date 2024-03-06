@@ -1,0 +1,58 @@
+function [dataset, headers] = A3dDatasetParsing(filePath, A3dFieldNames, footprintPk)
+% The function parses 3d georeferenced attributes (that are profiles with a
+% vertical dimension) that are specified in A3dFieldNames
+% footPrintPk defines where and when they are in a planar look, which can
+% be combined with the vertical-bin field to form a complete primary key
+% for dataset
+% The uniqueness condition may be checked when the functionality is
+% implemented
+
+% first, find the size of the vertical dimension
+headers = [footprintPk, "bin_number", A3dFieldNames];
+S = hdfinfo(filePath, "eos");
+sampleData = hdfread(S.Swath, "Fields", A3dFieldNames{1});
+sampleFieldDim = size(sampleData);
+verticalBinsCt = sampleFieldDim(2);
+footprintRecordCt = sampleFieldDim(1);
+footprintPksCt = numel(footprintPk);
+A3dFieldNamesCt = numel(A3dFieldNames);
+dataset = zeros(footprintRecordCt * verticalBinsCt, footprintPksCt + A3dFieldNamesCt + 1);
+
+if verticalBinsCt > 1
+    planarPk = [];
+    % get the incomplete planar pk of the footprint
+    for pkNo = 1: numel(footprintPk)
+        pkFieldName = footprintPk(pkNo);
+        data = hdfread(S.Swath, "Fields", pkFieldName);
+        planarPk = [planarPk, data'];
+    end
+    
+    % expand the incomplete planarPk dataset to include the pk and
+    % specified 3d georeferenced attributes
+    errmsg = sprintf("Start loading 3d-georeferenced data, %d pixels in the footprint in total...\n", footprintRecordCt);
+    fprintf(2, errmsg);
+    for fieldNo = 1: numel(A3dFieldNames)
+        fieldName = A3dFieldNames(fieldNo);
+        data = hdfread(S.Swath, "Fields", fieldName);
+        for recordNo = 1: footprintRecordCt
+            % get the planar pk (x, y, t) of the footprint pixel
+            thisPlanarPk = planarPk(recordNo, :);
+
+            % get the information for each vertical bin under the footprint
+            for binNo = 1: verticalBinsCt
+                dataTupleLineNo = (recordNo - 1) * verticalBinsCt + binNo;
+                dataset(dataTupleLineNo, 1: footprintPksCt) = thisPlanarPk;
+                dataset(dataTupleLineNo, footprintPksCt + 1) = binNo;
+                dataset(dataTupleLineNo, footprintPksCt + fieldNo + 1) = data(recordNo, binNo);
+            end
+            if rem(recordNo, 6000) == 0 || recordNo == footprintRecordCt 
+                errmsg = sprintf("%d/%d pixels for %d/%d attributes in the footprint has been processed...\n", recordNo, footprintRecordCt, fieldNo, A3dFieldNamesCt);
+                fprintf(2, errmsg);
+            end
+
+        end
+
+    end
+end
+
+end
