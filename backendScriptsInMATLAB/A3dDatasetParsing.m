@@ -24,13 +24,18 @@ if verticalBinsCt > 1
     for pkNo = 1: numel(footprintPk)
         pkFieldName = footprintPk(pkNo);
         data = hdfread(S.Swath, "Fields", pkFieldName);
+        if size(data, 2) == 1
+        % the attribute has only one value for each oribit
+        % replicate them by recordsCt
+        data = data * ones(1, footprintRecordCt);
+        end
         planarPk = [planarPk, data'];
     end
     
     % expand the incomplete planarPk dataset to include the pk and
     % specified 3d georeferenced attributes
-    errmsg = sprintf("Start loading 3d-georeferenced data, %d pixels in the footprint in total...\n", footprintRecordCt);
-    fprintf(2, errmsg);
+    errmsg = sprintf("Start loading 3d-georeferenced data, %d footprints in the orbit in total...\n", footprintRecordCt);
+    fprintf(1, errmsg);
     for fieldNo = 1: numel(A3dFieldNames)
         fieldName = A3dFieldNames(fieldNo);
         data = hdfread(S.Swath, "Fields", fieldName);
@@ -46,8 +51,8 @@ if verticalBinsCt > 1
                 dataset(dataTupleLineNo, footprintPksCt + fieldNo + 1) = data(recordNo, binNo);
             end
             if rem(recordNo, 6000) == 0 || recordNo == footprintRecordCt 
-                errmsg = sprintf("%d/%d pixels for %d/%d attributes in the footprint has been processed...\n", recordNo, footprintRecordCt, fieldNo, A3dFieldNamesCt);
-                fprintf(2, errmsg);
+                errmsg = sprintf("%d/%d footprints for %d/%d attributes in the orbit have been processed...\n", recordNo, footprintRecordCt, fieldNo, A3dFieldNamesCt);
+                fprintf(1, errmsg);
             end
 
         end

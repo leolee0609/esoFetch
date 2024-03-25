@@ -6,7 +6,7 @@ header = [footprintPk, A2dFieldNames];
 A2dFieldNamesCt = numel(A2dFieldNames);
 footprintPkCt = numel(footprintPk);
 S = hdfinfo(filePath, "eos");
-sampleData = hdfread(S.Swath, "Fields", A2dFieldNames{1});
+sampleData = hdfread(S.Swath, "Fields", footprintPk{1});
 dataDim = size(sampleData);
 recordsCt = dataDim(2);
 dataset = zeros(recordsCt, footprintPkCt + A2dFieldNamesCt);
@@ -14,6 +14,11 @@ dataset = zeros(recordsCt, footprintPkCt + A2dFieldNamesCt);
 for pkNo = 1: footprintPkCt
     pkName = footprintPk(pkNo);
     pkRecords = hdfread(S.Swath, "Fields", pkName);
+    if size(pkRecords, 2) == 1
+        % the attribute has only one value for each oribit
+        % replicate them by recordsCt
+        pkRecords = pkRecords * ones(1, recordsCt);
+    end
     dataset(:, pkNo) = pkRecords;
 end
 

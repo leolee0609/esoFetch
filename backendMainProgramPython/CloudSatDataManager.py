@@ -4,6 +4,7 @@ import sys
 import shutil
 import sftpHandle
 import common_functions
+import hdfDataParsing
 
 class CloudSatDataManager:
     '''
@@ -18,6 +19,18 @@ class CloudSatDataManager:
     def __init__(self, tempDataDir = '../tempDataFolder', tempDataSizeWindow = 1024 * 1024 * 1024):
         self.tempDataDir = tempDataDir
         self.tempDataSizeWindow = tempDataSizeWindow
+        self.jobIdList = set()
+        self.hdfDataParser = hdfDataParsing.hdfDataParsing()
+
+    def jobId2SpacePaths(self, jobId):
+        '''
+        :param jobId: int or str
+        :return: (fileTrackRecordsFilePath, spaceFolderPath)
+        '''
+        tractkecordsFilePath = self.tempDataDir + f"/{jobId}.txt"
+        spaceFolderPath = self.tempDataDir + f"/{jobId}"
+
+        return (tractkecordsFilePath, spaceFolderPath)
 
     def getABatchOfData(self, jobId, productName):
         '''
@@ -27,7 +40,7 @@ class CloudSatDataManager:
 
         We maintain a file that tracks the progress discretely in the tempDataDir
         The file is named as "requestUserIP_hisRequestNo.txt"
-        The protool of the record file is:
+        The protocol of the record file is:
         productName
         productFolderLocationOnSourceServer
         DownloadedHdfFiles
@@ -109,7 +122,22 @@ class CloudSatDataManager:
         return True
 
 
+    def readABatchOfData(self, jobId, fieldNames, footprintPks = None):
+        '''
+        Read all data of the jobId in tempDataDir and store them in a database
+        :return: List[filePathsThatAreSuccessfullyRead]
+        '''
+        jobTrackRecordFilePath, jobDataSpacePath = self.jobId2SpacePaths(jobId)
+        if footprintPks == None:
+            # by default, the pk of a footprint (x, y, t) would use the following
+            footprintPks = ["Latitude", "Longitude", "UTC_Start"]
+        self.hdfDataParser.readABatchOfHdfSwathData(jobDataSpacePath, fieldNames, )
+
+
+
 tempDataDir = "/Users/leo.li27/Documents/uwaterloo/research/CloudSat/CloudSatWebProjects/tempDataFolder"
 CSDM = CloudSatDataManager(tempDataDir)
 print(CSDM.getABatchOfData("0000", "1B-CPR.P_R05"))
+
+
 
