@@ -1,8 +1,9 @@
 function [dataset, header] = A2dDatasetParsing(filePath, A2dFieldNames, footprintPk)
 % The function returns a dataset with primary key (x, y, z) containing
 % horizontal 2d-referenced attributes without vertical profiles
-
+A2dFieldNames = unique(A2dFieldNames, 'stable');
 header = [footprintPk, A2dFieldNames];
+header = replace(header, "-", "_");
 A2dFieldNamesCt = numel(A2dFieldNames);
 footprintPkCt = numel(footprintPk);
 S = hdfinfo(filePath, "eos");

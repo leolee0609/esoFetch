@@ -8,7 +8,9 @@ function [dataset, headers] = A3dDatasetParsing(filePath, A3dFieldNames, footpri
 % implemented
 
 % first, find the size of the vertical dimension
+A3dFieldNames = unique(A3dFieldNames, 'stable');
 headers = [footprintPk, "bin_number", A3dFieldNames];
+headers = replace(headers, "-", "_");
 S = hdfinfo(filePath, "eos");
 sampleData = hdfread(S.Swath, "Fields", A3dFieldNames{1});
 sampleFieldDim = size(sampleData);

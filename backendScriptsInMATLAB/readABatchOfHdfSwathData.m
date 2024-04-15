@@ -30,7 +30,8 @@ for fieldNo = 1: numel(fieldNames)
         A3dFieldNames = [A3dFieldNames, fieldName];
     end
 end
-
+A3dFieldNames = unique(A3dFieldNames, 'stable');
+A2dFieldNames = unique(A2dFieldNames, 'stable');
 % parse the files and gather datasets
 errmsg = sprintf("Start parsing a batch of data under %s, overall %d hdf files.", folderPath, numel(filePaths));
 fprintf(1, errmsg);
@@ -38,14 +39,12 @@ A2dCumulativeRecordsCt = 0;
 A3dCumulativeRecordsCt = 0;
 A2dDataSet = zeros(numel(filePaths) * recordsCt * 2, numel(footprintPks) + numel(A2dFieldNames));
 A3dDataSet = zeros(numel(filePaths) * recordsCt * 125 * 2, numel(footprintPks) + 1 + numel(A3dFieldNames));
-A2dDatasetHeader = [footprintPks, A2dFieldNames];
-A3dDatasetHeader = [footprintPks, "bin_number", A3dFieldNames];
 A2dsubDatasetEndLineNo = 0;
 A3dsubDatasetEndLineNo = 0;
 for fileNo = 1: numel(filePaths)
     filePath = filePaths{fileNo};
-    A2dDataSubSet = A2dDatasetParsing(filePath, A2dFieldNames, footprintPks);
-    A3dDataSubSet = A3dDatasetParsing(filePath, A3dFieldNames, footprintPks);
+    [A2dDataSubSet, A2dDatasetHeader] = A2dDatasetParsing(filePath, A2dFieldNames, footprintPks);
+    [A3dDataSubSet, A3dDatasetHeader] = A3dDatasetParsing(filePath, A3dFieldNames, footprintPks);
     recordsCt = size(A2dDataSubSet, 1);
     A2dCumulativeRecordsCt = A2dCumulativeRecordsCt + recordsCt;
     A3dCumulativeRecordsCt = A3dCumulativeRecordsCt + 125 * recordsCt;

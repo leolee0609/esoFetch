@@ -54,7 +54,6 @@ class CloudSatDataManager:
         # check if the record file has been built
         recordFileName = str(jobId) + '.txt'
         recordFilePath = self.tempDataDir + f"/{recordFileName}"
-        productDirOnSource = ''
 
         # check if the download task is triggered first name without any records
         if recordFileName not in os.listdir(self.tempDataDir):
@@ -122,7 +121,7 @@ class CloudSatDataManager:
         return True
 
 
-    def readABatchOfData(self, jobId, fieldNames, footprintPks = None):
+    def readABatchOfData(self, jobId, fieldNames, databasePath, footprintPks = None):
         '''
         Read all data of the jobId in tempDataDir and store them in a database
         :return: List[filePathsThatAreSuccessfullyRead]
@@ -130,14 +129,25 @@ class CloudSatDataManager:
         jobTrackRecordFilePath, jobDataSpacePath = self.jobId2SpacePaths(jobId)
         if footprintPks == None:
             # by default, the pk of a footprint (x, y, t) would use the following
-            footprintPks = ["Latitude", "Longitude", "UTC_Start"]
-        self.hdfDataParser.readABatchOfHdfSwathData(jobDataSpacePath, fieldNames, )
+            footprintPks = ["Latitude", "Longitude", "TAI_start", "Profile_time"]
+        self.hdfDataParser.dumpHdfSwathDataToDatabase(jobDataSpacePath, fieldNames, footprintPks, databasePath)
 
 
-
+'''
 tempDataDir = "/Users/leo.li27/Documents/uwaterloo/research/CloudSat/CloudSatWebProjects/tempDataFolder"
 CSDM = CloudSatDataManager(tempDataDir)
 print(CSDM.getABatchOfData("0000", "1B-CPR.P_R05"))
 
-
-
+jobId = '0000'
+fieldNames = ["Height", "Data_quality", "Radar_Reflectivity", "MODIS_cloud_flag", 'DEM_elevation', 'CPR_Cloud_mask', 'Clutter_reduction_flag', 'Vertical_binsize', 'Pitch_offset', 'Roll_offset', 'Navigation_land_sea_flag', 'MODIS_Cloud_Fraction', 'MODIS_scene_char', 'MODIS_scene_var']
+databasePath = './testDB'
+tempDataDir = "/Users/leo.li27/Documents/uwaterloo/research/CloudSat/CloudSatWebProjects/tempDataFolder"
+CSDM = CloudSatDataManager(tempDataDir)
+CSDM.readABatchOfData(jobId, fieldNames, databasePath)
+'''
+jobId = '0000'
+fieldNames = ["Height", "Data_quality", "Radar_Reflectivity", "MODIS_cloud_flag", 'DEM_elevation', 'CPR_Cloud_mask', 'Clutter_reduction_flag', 'Vertical_binsize', 'Pitch_offset', 'Roll_offset', 'Navigation_land_sea_flag', 'MODIS_Cloud_Fraction', 'MODIS_scene_char', 'MODIS_scene_var']
+databasePath = './testDB'
+tempDataDir = "/Users/leo.li27/Documents/uwaterloo/research/CloudSat/CloudSatWebProjects/tempDataFolder"
+CSDM = CloudSatDataManager(tempDataDir)
+CSDM.readABatchOfData(jobId, fieldNames, databasePath)
