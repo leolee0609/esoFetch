@@ -1,4 +1,4 @@
-function hdfPaths = findHDFFiles(folderPath)
+function hdfPaths = findHDFFiles(folderPath, recursive)
     % Initialize an empty cell array to store HDF file paths
     hdfPaths = {};
 
@@ -12,10 +12,12 @@ function hdfPaths = findHDFFiles(folderPath)
         
         % Check if the current item is a directory and not '.' or '..'
         if fileList(i).isdir && ~strcmp(fileList(i).name, '.') && ~strcmp(fileList(i).name, '..')
-            % Recursively call findHDFFiles on subfolders
-            subFolderHDFPaths = findHDFFiles(currentItemPath);
-            % Append the HDF file paths found in the subfolder to hdfPaths
-            hdfPaths = [hdfPaths; subFolderHDFPaths];
+            if recursive
+                % Recursively call findHDFFiles on subfolders
+                subFolderHDFPaths = findHDFFiles(currentItemPath, recursive);
+                % Append the HDF file paths found in the subfolder to hdfPaths
+                hdfPaths = [hdfPaths; subFolderHDFPaths];
+            end
         elseif ~fileList(i).isdir
             % Check if the current item is an HDF file
             [~, ~, fileExt] = fileparts(currentItemPath);

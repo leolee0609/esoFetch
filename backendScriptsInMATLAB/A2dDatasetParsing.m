@@ -6,10 +6,17 @@ header = [footprintPk, A2dFieldNames];
 header = replace(header, "-", "_");
 A2dFieldNamesCt = numel(A2dFieldNames);
 footprintPkCt = numel(footprintPk);
-S = hdfinfo(filePath, "eos");
-sampleData = hdfread(S.Swath, "Fields", footprintPk{1});
-dataDim = size(sampleData);
-recordsCt = dataDim(2);
+
+recordsCt = 1;
+footprintPkNo = 0;
+while recordsCt == 1
+    footprintPkNo = footprintPkNo + 1;
+    S = hdfinfo(filePath, "eos");
+    sampleData = hdfread(S.Swath, "Fields", footprintPk{footprintPkNo});
+    dataDim = size(sampleData);
+    recordsCt = dataDim(2);
+end
+
 dataset = zeros(recordsCt, footprintPkCt + A2dFieldNamesCt);
 
 for pkNo = 1: footprintPkCt

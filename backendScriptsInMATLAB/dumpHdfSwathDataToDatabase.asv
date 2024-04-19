@@ -11,7 +11,7 @@ if ~exist(databasePath, 'file')
     fclose(fileId);
 end
 
-resolutionVolumePks = [footprintPks, "bin_number"];
+resolutionVolumePks = [footprintPks, "bin_num"];
 
 saveDataset2Database(A3dDataset, A3dDatasetHeader, "test3d", databasePath, resolutionVolumePks);
 saveDataset2Database(A2dDataset, A2dDatasetHeader, "test2d", databasePath, footprintPks);

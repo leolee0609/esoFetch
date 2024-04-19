@@ -1,4 +1,4 @@
-function [A2dDataSet, A2dDatasetHeader, A3dDataSet, A3dDatasetHeader] = readABatchOfHdfSwathData(folderPath, fieldNames, footprintPks)
+function [A2dDataSet, A2dDatasetHeader, A3dDataSet, A3dDatasetHeader] = readABatchOfHdfSwathData(folderPath, fieldNames, footprintPks, recursive)
 % the function reads all the hdf-eos data in folderPath and returns the
 % 2 datasets: The first one with 2d geolocation as the primary key,
 % recording the 2d attributes without the vertical dimension; Whereas the
@@ -7,7 +7,7 @@ function [A2dDataSet, A2dDatasetHeader, A3dDataSet, A3dDatasetHeader] = readABat
 % which would be used as the primary keys
 
 % first, find all hdf files under folderPath
-filePaths = findHDFFiles(folderPath);
+filePaths = findHDFFiles(folderPath, recursive);
 disp('List of file paths:');
 disp(filePaths);
 
