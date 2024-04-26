@@ -17,14 +17,12 @@ class sftpHandle:
 
         ftpServerFiles = ssh_client.open_sftp()
 
-        print("Successfully connected to the sftp source server.", file = sys.stderr)
+        print("Successfully connected to the sftp source server.")
 
         rootDir = ftpServerFiles.getcwd()
         files = ftpServerFiles.listdir()
 
 
-        print(f"Current directory: {rootDir}", file = sys.stderr)
-        print(f"Contents in the current directory: {files}", file = sys.stderr)
 
         self.sftpServer = ftpServerFiles
         self.sshClient = ssh_client

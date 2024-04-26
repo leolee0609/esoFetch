@@ -10,7 +10,7 @@ class hdfDataParsing:
     def readABatchOfHdfSwathData(self, folderPath, fieldNames, footprintPks):
         self.eng.readABatchOfHdfSwathData(folderPath, fieldNames, footprintPks)
 
-    def dumpHdfSwathDataToDatabase(self, folderPath, fieldNames, footprintPks, databasePath):
+    def dumpHdfSwathDataToDatabase(self, folderPath, fieldNames, footprintPks, databasePath, recursive = False):
         '''
         Parse all hdf files under folderPath to 2d-attribute and 3d-attribute datasets
         with footprintPks as the primary key (usually combined), then save them into
@@ -21,5 +21,5 @@ class hdfDataParsing:
         :param databasePath: str
         :return:
         '''
-        self.eng.dumpHdfSwathDataToDatabase(folderPath, fieldNames, footprintPks, databasePath)
+        self.eng.dumpHdfSwathDataToDatabase(folderPath, fieldNames, footprintPks, databasePath, recursive)
 

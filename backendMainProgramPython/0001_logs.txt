@@ -1,0 +1,204 @@
+
+1714149911.382386: Successfully created Query job: 0001.
+
+1714149918.373605: Start running a Query job: 0001.
+
+1714150052.160304: Successfully created Query job: 0001.
+
+1714150057.907959: Start running a Query job: 0001.
+
+1714150105.768117: Successfully created Query job: 0001.
+
+1714150135.017576: Start running a Query job: 0001.
+
+1714150326.000416: Successfully created Query job: 0001.
+
+1714150331.339655: Start running a Query job: 0001.
+
+1714150369.484002: Successfully created Query job: 0001.
+
+1714150374.972329: Start running a Query job: 0001.
+
+1714150573.5994189: Successfully created Query job: 0001.
+
+1714150578.850224: Start running a Query job: 0001.
+
+1714150592.9630861: Continue the parsing task. 0.0 Completed: 0/0.
+
+1714150592.96354: The following files will be parsed and dumped into database: [].
+
+1714150592.963649: Start parsing the batch of data with footprintPks: ['TAI_start', 'Profile_time'].
+
+1714150757.9750762: Successfully created Query job: 0001.
+
+1714150764.064615: Start running a Query job: 0001.
+
+1714150777.700466: Continue the parsing task. 0.0 Completed: 0/0.
+
+1714150777.7009: The following files will be parsed and dumped into database: [].
+
+1714150777.701012: Start parsing the batch of data with footprintPks: ['TAI_start', 'Profile_time'].
+
+1714150946.343887: Successfully created Query job: 0001.
+
+1714150951.765095: Start running a Query job: 0001.
+
+1714151147.317687: Successfully created Query job: 0001.
+
+1714151153.3442922: Start running a Query job: 0001.
+
+1714151167.765994: Continue the parsing task. 0.0 Completed: 0/0.
+
+1714151167.766485: The following files will be parsed and dumped into database: [].
+
+1714151167.766591: Start parsing the batch of data with footprintPks: ['TAI_start', 'Profile_time'].
+
+1714151604.0942872: Successfully created Query job: 0001.
+
+1714151609.7272398: Start running a Query job: 0001.
+
+1714151783.340735: Successfully created Query job: 0001.
+
+1714151788.6506822: Start running a Query job: 0001.
+
+1714151848.041437: Successfully created Query job: 0001.
+
+1714151853.379935: Start running a Query job: 0001.
+
+1714151940.262156: Successfully created Query job: 0001.
+
+1714151945.811323: Start running a Query job: 0001.
+
+1714151963.591399: Start downloading a new batch of data. Current progress: 0.0.
+
+1714152206.198705: Successful download: //Data/2B-GEOPROF.P1_R05/2012/034/2012034161842_30691_CS_2B-GEOPROF_GRANULE_P1_R05_E05_F00.hdf. 8.449458122253418 MB of things downloaded. 
+Progress: 0.058823529411764705.
+
+1714152317.53666: Successfully created Query job: 0001.
+
+1714152323.21822: Start running a Query job: 0001.
+
+1714152339.8675652: Start downloading a new batch of data. Current progress: 0.0.
+
+1714152592.6959739: Successful download: //Data/2B-GEOPROF.P1_R05/2012/034/2012034161842_30691_CS_2B-GEOPROF_GRANULE_P1_R05_E05_F00.hdf. 8.449458122253418 MB of things downloaded. 
+Progress: 0.058823529411764705.
+
+1714152754.7658062: Successfully created Query job: 0001.
+
+1714152760.6841862: Start running a Query job: 0001.
+
+1714152778.52967: Start downloading a new batch of data. Current progress: 0.0.
+
+1714152980.467217: Successful download: //Data/2B-GEOPROF.P1_R05/2012/034/2012034161842_30691_CS_2B-GEOPROF_GRANULE_P1_R05_E05_F00.hdf. 8.449458122253418 MB of things downloaded. 
+Progress: 0.058823529411764705.
+
+1714153086.806206: Successfully created Query job: 0001.
+
+1714153092.285344: Start running a Query job: 0001.
+
+1714153092.287204: Continue the parsing task. 0.0 Completed: 0/0.
+
+1714153092.287445: The following files will be parsed and dumped into database: [].
+
+1714153092.2875571: Start parsing the batch of data with footprintPks: ['TAI_start', 'Profile_time'].
+
+1714153096.185427: Start downloading a new batch of data. Current progress: 0.058823529411764705.
+
+1714153096.1857128: Warning, the temp data dir is not cleared. The size is 8866047 now.
+
+1714153222.113508: Successfully created Query job: 0001.
+
+1714153223.771411: Successfully created Query job: 0001.
+
+1714153228.0607119: Start running a Query job: 0001.
+
+1714153228.062125: Continue the parsing task. 0.0 Completed: 0/0.
+
+1714153228.062473: The following files will be parsed and dumped into database: [].
+
+1714153228.062627: Start parsing the batch of data with footprintPks: ['TAI_start', 'Profile_time'].
+
+1714153228.650781: Start running a Query job: 0001.
+
+1714153228.653058: Continue the parsing task. 0.0 Completed: 0/0.
+
+1714153228.653594: The following files will be parsed and dumped into database: [].
+
+1714153228.6538491: Start parsing the batch of data with footprintPks: ['TAI_start', 'Profile_time'].
+
+1714153231.898828: Start downloading a new batch of data. Current progress: 0.058823529411764705.
+
+1714153231.8991911: Warning, the temp data dir is not cleared. The size is 14436607 now.
+
+1714153232.537478: Start downloading a new batch of data. Current progress: 0.058823529411764705.
+
+1714153232.537815: Warning, the temp data dir is not cleared. The size is 8866047 now.
+
+1714153412.632608: Successful download: //Data/2B-GEOPROF.P1_R05/2012/034/2012034225347_30695_CS_2B-GEOPROF_GRANULE_P1_R05_E05_F00.hdf. 8.500239372253418 MB of things downloaded. 
+Progress: 0.11764705882352941.
+
+1714153439.365549: Successful download: //Data/2B-GEOPROF.P1_R05/2012/034/2012034225347_30695_CS_2B-GEOPROF_GRANULE_P1_R05_E05_F00.hdf. 8.500239372253418 MB of things downloaded. 
+Progress: 0.11764705882352941.
+
+1714153453.727639: Successfully created Query job: 0001.
+
+1714153458.221934: Start running a Query job: 0001.
+
+1714153458.223495: Continue the parsing task. 0.0 Completed: 0/0.
+
+1714153458.223773: The following files will be parsed and dumped into database: [].
+
+1714153458.2239099: Start parsing the batch of data with footprintPks: ['TAI_start', 'Profile_time'].
+
+1714153462.122972: Start downloading a new batch of data. Current progress: 0.11764705882352941.
+
+1714153462.1233978: Warning, the temp data dir is not cleared. The size is 19810810 now.
+
+1714153702.143818: Successful download: //Data/2B-GEOPROF.P1_R05/2012/034/2012034143956_30690_CS_2B-GEOPROF_GRANULE_P1_R05_E05_F00.hdf. 22.135604858398438 MB of things downloaded. 
+Progress: 0.17647058823529413.
+
+1714153737.2296581: Successful download: //Data/2B-GEOPROF.P1_R05/2012/034/2012034143956_30690_CS_2B-GEOPROF_GRANULE_P1_R05_E05_F00.hdf. 22.135604858398438 MB of things downloaded. 
+Progress: 0.17647058823529413.
+
+1714153738.0184991: Successfully created Query job: 0001.
+
+1714153742.616699: Start running a Query job: 0001.
+
+1714153746.5357308: Start downloading a new batch of data. Current progress: 0.17647058823529413.
+
+1714153746.5361211: Warning, the temp data dir is not cleared. The size is 34108527 now.
+
+1714153785.3117282: Successfully created Query job: 0001.
+
+1714153786.9131598: Successfully created Query job: 0001.
+
+1714153789.5937312: Start running a Query job: 0001.
+
+1714153789.595583: Continue the parsing task. 0.0 Completed: 0/0.
+
+1714153789.595915: The following files will be parsed and dumped into database: [].
+
+1714153789.5960782: Start parsing the batch of data with footprintPks: ['TAI_start', 'Profile_time'].
+
+1714153791.1689532: Start running a Query job: 0001.
+
+1714153791.170815: Continue the parsing task. 0.0 Completed: 0/0.
+
+1714153791.171093: The following files will be parsed and dumped into database: [].
+
+1714153791.171229: Start parsing the batch of data with footprintPks: ['TAI_start', 'Profile_time'].
+
+1714153793.4863539: Start downloading a new batch of data. Current progress: 0.17647058823529413.
+
+1714153793.48667: Warning, the temp data dir is not cleared. The size is 35845231 now.
+
+1714153796.216921: Start downloading a new batch of data. Current progress: 0.17647058823529413.
+
+1714153796.2172601: Warning, the temp data dir is not cleared. The size is 35976303 now.
+
+1714153892.7987: Successful download: //Data/2B-GEOPROF.P1_R05/2012/034/2012034112223_30688_CS_2B-GEOPROF_GRANULE_P1_R05_E05_F00.hdf. 30.631890296936035 MB of things downloaded. 
+Progress: 0.23529411764705882.
+
+1714153922.0357492: Successful download: //Data/2B-GEOPROF.P1_R05/2012/034/2012034112223_30688_CS_2B-GEOPROF_GRANULE_P1_R05_E05_F00.hdf. 30.631890296936035 MB of things downloaded. 
+Progress: 0.23529411764705882.
+

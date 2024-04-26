@@ -11,8 +11,30 @@ class parsedDataProcessor:
         '''
         self.dbFilePath = dbFilePath
 
+    def _determine_status(self, filterCriteria):
+        '''
+        :return: Oneof(1, 2, 3)
+        1: 2d attributes only;
+        2: 3d attributes only;
+        3: Mixed
+        '''
+        attributeIndicatorList = [tup[1][0] for tup in filterCriteria.items()]
+        if len(set(attributeIndicatorList)) == 1:
+            if attributeIndicatorList[0] == '2d':
+                return 1
+            elif attributeIndicatorList[0] == '3d':
+                return 2
+        return 3
 
-    def dataFilterDF(self, filterCriteria = None, outputColumns = ['*']):
+    def _select_table(self, status):
+        if status == 1:
+            return 'test2d'
+        elif status == 2:
+            return 'test3d'
+        else:
+            return 'test3d JOIN test2d ON test3d.Latitude = test2d.Latitude AND test3d.Longitude = test2d.Longitude AND test3d.UTC_start = test2d.UTC_start AND test3d.Profile_time = test2d.Profile_time'
+
+    def dataFilterDF(self, filterCriteria=None, outputColumns=['*'], applySQL2DB=False, temp_table_name='query_result'):
         '''
         The function sets a filter to select all the records in database that
         satisfy filterCriteria. It then outputs a filtered dataset with only outputColumns
@@ -23,38 +45,32 @@ class parsedDataProcessor:
         all the data records whose Cloud_mask field value are larger than 5. Note that the operator must be BINARY.
         The filter criteria dictionary is passed to the data filter function as a parameter
         :param outputColumns: List[column_names: str]
-        :return: DataFrame
+        :param applySQL2DB: bool If True, apply the filter directly to the database.
+        :return: DataFrame The filtered dataset.
         '''
         conn = sqlite3.connect(self.dbFilePath)
         where_clause, params = common_functions.commonFunctions.create_where_clause(filterCriteria)
         sqlFields = ','.join(outputColumns)
-        # check if there exists 3d attributes
-        # 1 is 2d only, 2 is 3d only, 3 is both existing
-        status = -1
-        attributeIndicatorList = list(map(lambda tup: tup[1][0], filterCriteria.items()))
-        if len(set(attributeIndicatorList)) == 1:
-            if attributeIndicatorList[0] == '2d':
-                status = 1
-            elif attributeIndicatorList[0] == '3d':
-                status = 2
-        else:
-            status = 3
+        status = self._determine_status(filterCriteria)
 
-        if status == 1:
-            table_name = 'test2d'
-        elif status == 2:
-            table_name = 'test3d'
-        else:
-            table_name = 'test3d JOIN test2d ON test3d.Latitude = test2d.Latitude AND test3d.Longitude = test2d.Longitude AND test3d.UTC_start = test2d.UTC_start AND test3d.Profile_time = test2d.Profile_time'
+        table_name = self._select_table(status)
 
         sqlQuery = f"SELECT {sqlFields} FROM {table_name} WHERE {where_clause}"
         print(f'Executing SQL query: {sqlQuery}...')
-        # Execute the query and fetch the result into a pandas DataFrame
+
         dataframe = pd.read_sql_query(sqlQuery, conn, params=params)
 
-        # Close the database connection
-        conn.close()
+        if applySQL2DB:
+            # Apply the changes to the database by creating a new table and replacing the old one
+            create_temp_table_sql = f"CREATE TABLE {temp_table_name} AS {sqlQuery}"
+            conn.execute("DROP TABLE IF EXISTS " + temp_table_name)
+            conn.execute(create_temp_table_sql)
+            conn.execute(f"DROP TABLE {table_name}")
+            conn.execute(f"ALTER TABLE {temp_table_name} RENAME TO {table_name}")
+            conn.commit()
+            print(f"Changes applied to the database. The {table_name} table now contains only the filtered results.")
 
+        conn.close()
         return dataframe
 
 
