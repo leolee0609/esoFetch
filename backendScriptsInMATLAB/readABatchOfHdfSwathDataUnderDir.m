@@ -1,9 +1,13 @@
-function [A2dDataSet, A2dDatasetHeader, A3dDataSet, A3dDatasetHeader] = readABatchOfHdfSwathData(filePaths, fieldNames, footprintPks)
-% The function reads all the hdf-eos data from the list of filePaths and returns two datasets:
-% The first one with 2d geolocation as the primary key, recording the 2d attributes without the vertical dimension.
-% The second dataset records 3d georeferenced attributes.
-% NOTE: You MUST specify x, y, z geolocation fields in A3dGeoFieldNames, which would be used as the primary keys
+function [A2dDataSet, A2dDatasetHeader, A3dDataSet, A3dDatasetHeader] = readABatchOfHdfSwathDataUnderDir(folderPath, fieldNames, footprintPks, recursive)
+% the function reads all the hdf-eos data in folderPath and returns the
+% 2 datasets: The first one with 2d geolocation as the primary key,
+% recording the 2d attributes without the vertical dimension; Whereas the
+% second dataset records 3d georeferenced attributes
+% NOTE: You MUST specify x, y, z geolocation fields in A3dGeoFieldNames,
+% which would be used as the primary keys
 
+% first, find all hdf files under folderPath
+filePaths = findHDFFiles(folderPath, recursive);
 disp('List of file paths:');
 disp(filePaths);
 
@@ -29,7 +33,7 @@ end
 A3dFieldNames = unique(A3dFieldNames, 'stable');
 A2dFieldNames = unique(A2dFieldNames, 'stable');
 % parse the files and gather datasets
-errmsg = sprintf("Start parsing a batch of data, overall %d hdf files.", numel(filePaths));
+errmsg = sprintf("Start parsing a batch of data under %s, overall %d hdf files.", folderPath, numel(filePaths));
 fprintf(1, errmsg);
 A2dCumulativeRecordsCt = 0;
 A3dCumulativeRecordsCt = 0;
@@ -55,6 +59,7 @@ for fileNo = 1: numel(filePaths)
 
     errmsg = sprintf("%d/%d hdf files completed...", fileNo, numel(filePaths));
     fprintf(1, errmsg);
+    
 end
 
 % remove the zero rows
@@ -72,7 +77,7 @@ if A2dDataSetRecordsCt ~= A2dCumulativeRecordsCt
     fprintf(2, errmsg);
 end
 A3dDataSetRecordsCt = size(A3dDataSet, 1);
-if A3dDataSetRecordsCt ~= A3dCumulativeRecordsCt
+if size(A3dDataSet, 1) ~= A3dCumulativeRecordsCt
     errmsg = sprintf("Warning, 3d dataset might lost some records from hdf files. %d records in dataset, but %d records in hdf file.", A3dDataSetRecordsCt, A3dCumulativeRecordsCt);
     fprintf(2, errmsg);
 end
@@ -90,4 +95,3 @@ if zeroRowsInA3dDataSetCt ~= 0
 end
 
 end
-

@@ -35,7 +35,7 @@ class commonFunctions:
         '''
         where_clauses = []
         params = []
-        for field, (operator, threshold) in query_dict.items():
+        for field, (status, operator, threshold) in query_dict.items():
             # We add a placeholder for the value, but not the field or operator
             where_clause = f"{field} {operator} ?"
             where_clauses.append(where_clause)

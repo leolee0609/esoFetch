@@ -34,7 +34,7 @@ class parsedDataProcessor:
         else:
             return 'test3d JOIN test2d ON test3d.Latitude = test2d.Latitude AND test3d.Longitude = test2d.Longitude AND test3d.UTC_start = test2d.UTC_start AND test3d.Profile_time = test2d.Profile_time'
 
-    def dataFilterDF(self, filterCriteria=None, outputColumns=['*'], applySQL2DB=False, temp_table_name='query_result'):
+    def dataFilterDF(self, filterCriteria=None, outputColumns=['*'], applySQL2DB=True, temp_table_name='query_result'):
         '''
         The function sets a filter to select all the records in database that
         satisfy filterCriteria. It then outputs a filtered dataset with only outputColumns
@@ -56,18 +56,30 @@ class parsedDataProcessor:
         table_name = self._select_table(status)
 
         sqlQuery = f"SELECT {sqlFields} FROM {table_name} WHERE {where_clause}"
-        print(f'Executing SQL query: {sqlQuery}...')
 
-        dataframe = pd.read_sql_query(sqlQuery, conn, params=params)
+        dataframe = None
+        if not applySQL2DB:
+            print(f'Executing SQL query: {sqlQuery}...')
+            dataframe = pd.read_sql_query(sqlQuery, conn, params=params)
 
         if applySQL2DB:
-            # Apply the changes to the database by creating a new table and replacing the old one
+            # Prepare the SQL query with parameters
+            sqlQuery = f"SELECT {sqlFields} FROM {table_name} WHERE Height >= ?"
+
+            # Create a new temporary table with the filtered results
             create_temp_table_sql = f"CREATE TABLE {temp_table_name} AS {sqlQuery}"
             conn.execute("DROP TABLE IF EXISTS " + temp_table_name)
-            conn.execute(create_temp_table_sql)
+            print(f'Executing SQL query: {sqlQuery}...')
+            conn.execute(create_temp_table_sql, params)
+
+            # Replace the old table with the new one
             conn.execute(f"DROP TABLE {table_name}")
             conn.execute(f"ALTER TABLE {temp_table_name} RENAME TO {table_name}")
             conn.commit()
+
+            sqlQuery = f"SELECT {sqlFields} FROM {table_name}"
+            dataframe = pd.read_sql_query(sqlQuery, conn)
+
             print(f"Changes applied to the database. The {table_name} table now contains only the filtered results.")
 
         conn.close()

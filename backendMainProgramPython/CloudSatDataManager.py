@@ -9,6 +9,7 @@ import json
 import parsedDataProcessor
 import threading
 import time
+import datetime
 
 
 class CloudSatJobs:
@@ -63,6 +64,34 @@ class CloudSatJobs:
         # dataframe that is a thumb of the job for quick visualization
         self.jobThumb = None
 
+    def plotJobThumbnail(self):
+        '''
+        Plot the stored thumbnail of the job and store into workDir
+        You may define different ways of plotting jobThumb
+        :return:
+        '''
+        import matplotlib.pyplot as plt
+
+        df = self.jobThumb
+        df['X_values'] = df['TAI_start'] + df['Profile_time']
+
+        # Set up the plot
+        fig, ax = plt.subplots()
+
+        # Create scatter plot
+        scatter = ax.scatter(df['X_values'], df['Height'], c=df['Radar_Reflectivity'], cmap='viridis')
+
+        # Add a colorbar
+        cbar = plt.colorbar(scatter)
+        cbar.set_label('Radar Reflectivity')
+
+        # Label the axes
+        ax.set_xlabel('Sum of TAI_start and Profile_time')
+        ax.set_ylabel('Height')
+
+        # Show the plot
+        plt.show()
+
     def parseTrackRecord(self, taskType = 'download'):
         trackRecordFile = None
         if 'download' in taskType:
@@ -113,10 +142,12 @@ class CloudSatJobs:
             info = info + '\n'
         if timeStamp:
             # add a time stamp
-            info = str(time.time()) + ': ' + info
+            taiTimeStamp = time.time()
+            timeStamp = datetime.datetime.fromtimestamp(taiTimeStamp)
+            info = str(timeStamp) + ': ' + info
         if err:
             printedErrMsg = f'From a {self.jobType} job {self.jobId}:\n'
-            print(printedErrMsg + info, sys.stderr)
+            print(printedErrMsg + info, file=sys.stderr)
         with open(self.logFile, 'a') as file:
             print(info, file=file)
         return info
@@ -185,9 +216,6 @@ class CloudSatJobs:
 
         productName: One of {"2B-GEOPROF.P1_R05", ...}
         '''
-        # connect to the source server
-        sourceServer = sftpHandle.sftpHandle()
-
         # read the progress of the downloading job, then parse it
         progressRecord = self.trackRecordsPaths['download_track_record']
         with open(progressRecord, 'r') as recordFile:
@@ -202,12 +230,19 @@ class CloudSatJobs:
         leftFilesCt = len(todo_list)
         overallTargetsCt = downloadedCt + leftFilesCt
 
+        if todo_list == []:
+            # no new downloading tasks. Do nothing
+            return None
+
+        # connect to the source server
+        sourceServer = sftpHandle.sftpHandle()
+
         # continue the downloading by one batch
         dataSpacePathDataSize = 0
         dataSpacePathDataRealSize = common_functions.commonFunctions.get_folder_size(self.workingDir)
         if dataSpacePathDataSize != dataSpacePathDataRealSize:
             msg = f"Warning, the temp data dir is not cleared. The size is {dataSpacePathDataRealSize} now."
-            self.saveJobLog(msg, err=True)
+            self.saveJobLog(msg)
         while dataSpacePathDataSize < self.spaceLimit and leftFilesCt > 0:
             filePathOnSource = todo_list[0]
             dataSpacePathDataSize += sourceServer.downloadFileFromSourceToLocal(filePathOnSource, self.workingDir)
@@ -233,14 +268,13 @@ class CloudSatJobs:
         sourceServer.close()
         return True
 
-    def readABatchOfData(self, fieldNames, databasePath, footprintPks = None):
+    def readABatchOfData(self, fileBatch, fieldNames, databasePath, footprintPks = None):
         '''
         Read all data of the jobId in workingDir and store them in a database
         Maintain a track record json file at self.trackRecordsPaths['parsing_track_record']
         , whose protocol format is:
         json{'progress': int (% of hdf-eos files parsed), 'parsed': [path2hdf-eosFileOnSource],
         'to_do_list': [path2hdf-eosFileOnSource], }
-        :return: List[filePathsThatAreSuccessfullyRead]
         '''
         # get the progress of the parsing tasks of the job
         trackRecordFile = self.trackRecordsPaths['parsing_track_record']
@@ -250,15 +284,14 @@ class CloudSatJobs:
         todo_list = taskRecord['to_do_list']
         parsedFiles = taskRecord['parsed']
         parsedCt = len(parsedFiles)
-        overallFilesCt = parsedCt + parsedCt
+        overallFilesCt = parsedCt + len(todo_list)
+
+        if todo_list == []:
+            # nothing to be parsed. Do nothing
+            return None
 
         msg = f'Continue the parsing task. {progress} Completed: {parsedCt}/{overallFilesCt}.'
         self.saveJobLog(msg)
-
-        # get the list of the workingDir now
-        fileBatch = common_functions.commonFunctions.list_files_under_folder(self.workingDir)
-        # we should only parse the files in the todo list
-        fileBatch = list(filter(lambda s: s in todo_list, fileBatch))
 
         msg = f'The following files will be parsed and dumped into database: {fileBatch}.'
         self.saveJobLog(msg)
@@ -269,29 +302,36 @@ class CloudSatJobs:
 
         msg = f'Start parsing the batch of data with footprintPks: {footprintPks}.'
         self.saveJobLog(msg)
-        self.hdfDataParser.dumpHdfSwathDataToDatabase(self.workingDir, fieldNames, footprintPks, databasePath)
-        msg = f'Completed parsing the batch of data.'
-        self.saveJobLog(msg)
+        if fileBatch:
+            self.hdfDataParser.dumpHdfSwathDataToDatabase(fileBatch, fieldNames, footprintPks, databasePath)
+            msg = f'Completed parsing the batch of data.'
+            self.saveJobLog(msg)
 
-        # delete all parsed hdf-eos files
-        common_functions.commonFunctions.delete_files(fileBatch)
+            # delete all parsed hdf-eos files
+            common_functions.commonFunctions.delete_files(fileBatch)
 
-        msg = f'Deleted the batch of files that were just parsed: {fileBatch}.'
-        self.saveJobLog(msg)
+            msg = f'Deleted the batch of files that were just parsed: {fileBatch}.'
+            self.saveJobLog(msg)
 
-        # the batch of data is processed, update the progress
-        parsedFiles = parsedFiles.extend(fileBatch)
-        parsedCt += len(fileBatch)
-        todo_list = list(map(lambda s: s not in fileBatch))
-        progress = float(parsedCt)/float(overallFilesCt)
-        parsingTRContent = {'progress': progress, 'to_do_list': todo_list,
-                               'parsed': parsedFiles}
-        parsingTRJsonObject = json.dumps(parsingTRContent, indent=4)
-        with open(trackRecordFile, 'w') as jsonFile:
-            jsonFile.write(parsingTRJsonObject)
+            # the batch of data is processed, update the progress
+            # convert local file paths in fileBatch to remote paths
+            currentParsedFiles = list(map(lambda s: s.split('/')[-1], fileBatch))
+            for todoFile in todo_list:
+                for currentParsedFile in currentParsedFiles:
+                    if currentParsedFile in todoFile:
+                        parsedFiles.append(todoFile)
+            parsedCt = len(parsedFiles)
+            todo_list = list(filter(lambda s: s not in parsedFiles, todo_list))
+            progress = float(parsedCt)/float(overallFilesCt)
+            parsingTRContent = {'progress': progress, 'to_do_list': todo_list,
+                                   'parsed': parsedFiles}
+            parsingTRJsonObject = json.dumps(parsingTRContent, indent=4)
+            with open(trackRecordFile, 'w') as jsonFile:
+                jsonFile.write(parsingTRJsonObject)
 
-
-        return fileBatch
+            return True
+        else:
+            return False
 
     def filterABatchOfData(self):
         '''
@@ -322,10 +362,18 @@ class CloudSatJobs:
         start_time = time.time()
         exeTime = 0
         while todoFiles != [] and exeTime <= timeOutLimit:
-            self.getABatchOfData()
+            if common_functions.commonFunctions.get_folder_size(self.workingDir) <= self.spaceLimit:
+                condition = self.getABatchOfData()
 
-            end_time = time.time()
-            exeTime = end_time - start_time
+                if condition == None:
+                    # downloading task is completed
+                    msg = f"Downloading task of the {self.jobType} job: {self.jobId} is completed."
+                    print(msg)
+                    self.saveJobLog(msg)
+                    return
+
+                end_time = time.time()
+                exeTime = end_time - start_time
 
     def runLocalProcessingThread(self, timeOutLimit = 9999999999):
         '''
@@ -338,14 +386,14 @@ class CloudSatJobs:
         start_time = time.time()
         exeTime = 0
         while todoFiles != [] and exeTime <= timeOutLimit:
-            # Extract file names from downloadedFiles
-            downloadedFiles = {os.path.basename(path) for path in downloadedFiles}
-
-            # List all files in workingDir
-            workingFiles = os.listdir(self.workingDir)
-
-            # Filter out files that are in workingDir and in todoFileNames
-            files = [file for file in workingFiles if file in downloadedFiles]
+            # get all files in the todo list of parsing, and downloaded in the downloading
+            progress, todoFiles, parsedFiles = self.parseTrackRecord('parse')
+            downProgress, tobeDownFiles, downloadedFiles = self.parseTrackRecord('download')
+            downloadedFiles = list(map(lambda s: s.split('/')[-1], downloadedFiles))
+            files = list(map(lambda s: s.split('/')[-1], todoFiles))
+            # find the todoFiles that are already downloaded. Those are to be parsed
+            files = list(filter(lambda s: s in downloadedFiles, files))
+            files = list(map(lambda s: self.workingDir + '/' + s, files))
 
             if files:
                 fieldNames = self.fieldNames
@@ -360,8 +408,16 @@ class CloudSatJobs:
                                       'DEM_elevation', 'CPR_Cloud_mask', 'Clutter_reduction_flag', 'Vertical_binsize',
                                       'Pitch_offset', 'Roll_offset', 'Navigation_land_sea_flag', 'MODIS_Cloud_Fraction',
                                       'MODIS_scene_char', 'MODIS_scene_var']
-                self.readABatchOfData(fieldNames=fieldNames, databasePath=self.databasePath)
+
+                condition = self.readABatchOfData(fileBatch=files, fieldNames=fieldNames, databasePath=self.databasePath)
                 self.jobThumb = self.filterABatchOfData()
+
+                if condition == None:
+                    # parsing task is completed
+                    msg = f"Parsing task of the {self.jobType} job: {self.jobId} is completed."
+                    print(msg)
+                    self.saveJobLog(msg)
+                    return
 
             # Wait before checking again
             time.sleep(10)
@@ -456,10 +512,10 @@ CSDM = CloudSatDataManager(tempDataDir)
 CSDM.readABatchOfData(jobId, fieldNames, databasePath)
 '''
 
-WD = '/Users/leo.li27/Documents/uwaterloo/research/CloudSat/CloudSatWebProjects/dataThroughPutRecords/0001'
+WD = '../dataThroughPutRecords/0001'
 trackRecordFilePaths = {'download_track_record': './0001Download.json',
                         'parsing_track_record': './0001Parse.json'}
 filterCriteria = {'Height': ('3d', '>=', 1200)}
-testJob = CloudSatJobs('0001', WD, 100000000, trackRecordFilePaths,
+testJob = CloudSatJobs('0001', WD, 20000000000, trackRecordFilePaths,
                        ['2012-02-03T00:00:00', '2012-02-04T00:00:00'], filterCriteria=filterCriteria)
-testJob.runJob(retry=True)
+testJob.runJob(retry=False)
