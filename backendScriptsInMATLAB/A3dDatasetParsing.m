@@ -12,10 +12,18 @@ A3dFieldNames = unique(A3dFieldNames, 'stable');
 headers = [footprintPk, "bin_number", A3dFieldNames];
 headers = replace(headers, "-", "_");
 S = hdfinfo(filePath, "eos");
-sampleData = hdfread(S.Swath, "Fields", A3dFieldNames{1});
+A3dFieldNamesNo = 1;
+sampleData = hdfread(S.Swath, "Fields", A3dFieldNames{A3dFieldNamesNo});
 sampleFieldDim = size(sampleData);
 verticalBinsCt = sampleFieldDim(2);
 footprintRecordCt = sampleFieldDim(1);
+while verticalBinsCt == 1 || footprintRecordCt == 1
+    A3dFieldNamesNo = A3dFieldNamesNo + 1;
+    sampleData = hdfread(S.Swath, "Fields", A3dFieldNames{A3dFieldNamesNo});
+    sampleFieldDim = size(sampleData);
+    verticalBinsCt = sampleFieldDim(2);
+    footprintRecordCt = sampleFieldDim(1);
+end
 footprintPksCt = numel(footprintPk);
 A3dFieldNamesCt = numel(A3dFieldNames);
 dataset = zeros(footprintRecordCt * verticalBinsCt, footprintPksCt + A3dFieldNamesCt + 1);
@@ -31,7 +39,7 @@ if verticalBinsCt > 1
         % replicate them by recordsCt
         data = data * ones(1, footprintRecordCt);
         end
-        planarPk = [planarPk, data'];
+        planarPk = [planarPk, double(data)'];
     end
     
     % expand the incomplete planarPk dataset to include the pk and

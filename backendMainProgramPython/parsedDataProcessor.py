@@ -44,40 +44,58 @@ class parsedDataProcessor:
         the field can be both. Example: {'Cloud_mask': (lambda x, y: x > y), 5} means that we want to select out
         all the data records whose Cloud_mask field value are larger than 5. Note that the operator must be BINARY.
         The filter criteria dictionary is passed to the data filter function as a parameter
+
+        UPDATE: Now, if 'sql' is a key value in filterCriteria, just execute the sql query in the value
+
         :param outputColumns: List[column_names: str]
         :param applySQL2DB: bool If True, apply the filter directly to the database.
         :return: DataFrame The filtered dataset.
         '''
         conn = sqlite3.connect(self.dbFilePath)
-        where_clause, params = common_functions.commonFunctions.create_where_clause(filterCriteria)
-        sqlFields = ','.join(outputColumns)
-        status = self._determine_status(filterCriteria)
+        params = None
+        # first, check if we simply run an input sql
+        if 'sql' in filterCriteria.keys():
+            # execute the sql directly
+            sqlQuery = filterCriteria['sql']
 
-        table_name = self._select_table(status)
+        else:
+            where_clause, params = common_functions.commonFunctions.create_where_clause(filterCriteria)
+            sqlFields = ','.join(outputColumns)
+            status = self._determine_status(filterCriteria)
 
-        sqlQuery = f"SELECT {sqlFields} FROM {table_name} WHERE {where_clause}"
+            table_name = self._select_table(status)
+
+            # Prepare the SQL query with parameters
+            sqlQuery = f"SELECT {sqlFields} FROM {table_name} WHERE {where_clause}"
 
         dataframe = None
         if not applySQL2DB:
             print(f'Executing SQL query: {sqlQuery}...')
-            dataframe = pd.read_sql_query(sqlQuery, conn, params=params)
+            if params:
+                dataframe = pd.read_sql_query(sqlQuery, conn, params=params)
+            else:
+                dataframe = pd.read_sql_query(sqlQuery, conn)
 
         if applySQL2DB:
-            # Prepare the SQL query with parameters
-            sqlQuery = f"SELECT {sqlFields} FROM {table_name} WHERE Height >= ?"
-
             # Create a new temporary table with the filtered results
+            if 'test2d' in sqlQuery:
+                table_name = 'test2d'
+            elif 'test3d' in sqlQuery:
+                table_name = 'test3d'
+
             create_temp_table_sql = f"CREATE TABLE {temp_table_name} AS {sqlQuery}"
             conn.execute("DROP TABLE IF EXISTS " + temp_table_name)
             print(f'Executing SQL query: {sqlQuery}...')
-            conn.execute(create_temp_table_sql, params)
+            if params:
+                conn.execute(create_temp_table_sql, params)
+            else:
+                conn.execute(create_temp_table_sql)
 
             # Replace the old table with the new one
             conn.execute(f"DROP TABLE {table_name}")
             conn.execute(f"ALTER TABLE {temp_table_name} RENAME TO {table_name}")
             conn.commit()
 
-            sqlQuery = f"SELECT {sqlFields} FROM {table_name}"
             dataframe = pd.read_sql_query(sqlQuery, conn)
 
             print(f"Changes applied to the database. The {table_name} table now contains only the filtered results.")

@@ -1,0 +1,25 @@
+<!-- success.html located in templates/converter/success.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Details for {{ job_id }}</title>
+</head>
+<body>
+    <h1>Job Details for {{ job_id }}</h1>
+    {% if job_data %}
+        <div>
+            <h2>Progress: {{ job_data.progress }}</h2>
+            <h3>Parsed Files:</h3>
+            <ul>
+                {% for file in job_data.parsed %}
+                    <li>{{ file }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <p>No data available for this job. Please check if the job ID is correct or if the file exists.</p>
+    {% endif %}
+</body>
+</html>

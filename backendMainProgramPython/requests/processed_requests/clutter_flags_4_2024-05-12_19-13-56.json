@@ -1,0 +1,11 @@
+{
+    "jobId": "clutter_flags_4",
+    "jobType": "Query",
+    "dateRange": [
+        "2012-12-01T00:00:00",
+        "2012-12-01T23:00:00"
+    ],
+    "filterCriteria": {
+        "sql": "SELECT Latitude, Longitude, bin_number, Height, Clutter_reduction_flag FROM test3d, test2d;"
+    }
+}

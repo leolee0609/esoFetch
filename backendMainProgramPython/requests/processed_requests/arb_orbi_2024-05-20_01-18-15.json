@@ -1,0 +1,11 @@
+{
+    "jobId": "arb_orbi",
+    "jobType": "Query",
+    "dateRange": [
+        "2012-12-01T00:00:00",
+        "2012-12-01T06:59:59"
+    ],
+    "filterCriteria": {
+        "sql": "SELECT bin_number, Height, Radar_Reflectivity, CPR_Cloud_mask, test2d.* FROM test3d JOIN test2d ON test3d.Latitude = test2d.Latitude AND test3d.Longitude = test2d.Longitude AND test3d.UTC_start = test2d.UTC_start AND test3d.Profile_time = test2d.Profile_time WHERE Height != -9999 AND Height != 9999;"
+    }
+}

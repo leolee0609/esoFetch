@@ -1,0 +1,11 @@
+{
+    "jobId": "blind_zone_ground_clutter",
+    "jobType": "Query",
+    "dateRange": [
+        "2011-12-01T00:00:00",
+        "2011-12-01T23:00:00"
+    ],
+    "filterCriteria": {
+        "sql": "SELECT * FROM test3d ON test2d WHERE test3d.TAI_start = test2d.TAI_start AND test3d.Profile_time = test2d.Profile_time;"
+    }
+}

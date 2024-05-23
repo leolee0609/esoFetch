@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Formset Example</title>
+    <!-- Link to the external JavaScript file -->
+    <script src="{% static 'js/formset_management.js' %}" defer></script>
+</head>
+<body>
+    <!-- CSRF Token is necessary for form submission security -->
+    {% csrf_token %}
+    <!-- Main form for Job ID, Job Type, and Date Range -->
+    <form method="post" id="main-form">
+	{% csrf_token %}
+        {{ form.as_p }}
+        <div id="form-container">
+            <!-- Management form is necessary for handling the total form count -->
+            {{ formset.management_form }}
+            {% for filter_form in formset %}
+                <div class="filter-form">
+                    <!-- Render each form in the formset -->
+                    {{ filter_form.as_p }}
+                </div>
+            {% endfor %}
+        </div>
+        <!-- Button to add new filter forms -->
+        <button type="button" id="add-form">Add Filter</button>
+        <!-- Submit button for the whole form -->
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

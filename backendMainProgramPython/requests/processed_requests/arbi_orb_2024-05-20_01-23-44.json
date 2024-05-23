@@ -1,0 +1,11 @@
+{
+    "jobId": "arbi_orb",
+    "jobType": "Query",
+    "dateRange": [
+        "2012-12-01T00:00:00",
+        "2012-12-01T06:59:59"
+    ],
+    "filterCriteria": {
+        "sql": "SELECT * FROM test2d;"
+    }
+}

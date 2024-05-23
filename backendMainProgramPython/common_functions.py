@@ -2,6 +2,8 @@ import os
 from datetime import datetime
 import re
 from datetime import datetime, timedelta
+import shutil
+import json
 
 class commonFunctions:
     def get_folder_size(folder_path):
@@ -35,8 +37,11 @@ class commonFunctions:
         '''
         where_clauses = []
         params = []
-        for field, (status, operator, threshold) in query_dict.items():
+        for field, operation in query_dict.items():
+            if field == 'sql':
+                continue
             # We add a placeholder for the value, but not the field or operator
+            status, operator, threshold = operation
             where_clause = f"{field} {operator} ?"
             where_clauses.append(where_clause)
             params.append(threshold)
@@ -150,3 +155,28 @@ class commonFunctions:
             except Exception as e:
                 print(f"Failed to delete {file_path}: {e}")
 
+
+    def parse_json(file_path, processed_directory = None):
+        if processed_directory == None:
+            processed_directory = file_path
+        try:
+            with open(file_path, 'r') as file:
+                data = json.load(file)
+            # Move the file after parsing
+            base_name = os.path.basename(file_path)
+
+            # Get the current time as a human-readable string (e.g., "2024-05-09_12-30-45")
+            timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
+            # Split the filename and extension
+            name, extension = os.path.splitext(base_name)
+
+            # Create a new filename with the timestamp
+            new_filename = f"{name}_{timestamp}{extension}"
+            destination_file_path = os.path.join(processed_directory, new_filename)
+
+            # Move the file with the new name
+            shutil.move(file_path, destination_file_path)
+            return data
+        except Exception as e:
+            print(f'Error reading or parsing JSON file {file_path}: {e}')

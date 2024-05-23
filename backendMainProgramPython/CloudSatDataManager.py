@@ -10,6 +10,8 @@ import parsedDataProcessor
 import threading
 import time
 import datetime
+import matplotlib.pyplot as plt
+import multiprocessing
 
 
 class CloudSatJobs:
@@ -26,7 +28,7 @@ class CloudSatJobs:
         is expected to be run on user's local environment, which is beyond the scope of the
         service.
     '''
-    def __init__(self, jobId, workingDir, spaceLimit, trackRecordsPaths, dateRange, productName = '2B-GEOPROF.P1_R05', jobType = 'Query', fieldNames = ['*'], filterCriteria = None, logFile = None):
+    def __init__(self, **initInfo):
         '''
 
         :param jobId:
@@ -39,6 +41,26 @@ class CloudSatJobs:
         fieldName2: ('py_bool_function', py_bool_func(), (parameters))}
         :param logFile:
         '''
+        # unparse the initialization parameters
+        jobId = initInfo.get('jobId', None)
+        workingDir = initInfo.get('workingDir', None)
+        spaceLimit = initInfo.get('spaceLimit', None)
+        trackRecordsPaths = initInfo.get('trackRecordsPaths', None)
+        dateRange = initInfo.get('dateRange', None)
+        productName = initInfo.get('productName', None)
+        jobType = initInfo.get('jobType', None)
+        fieldNames = initInfo.get('fieldNames', None)
+        filterCriteria = initInfo.get('filterCriteria', None)
+        logFile = initInfo.get('logFile', None)
+
+        # handle the default parameters
+        if productName == None:
+            productName = '2B-GEOPROF.P1_R05'
+        if jobType == None:
+            jobType = 'Query'
+        if fieldNames == None:
+            fieldNames = ['*']
+
         self.jobId = jobId
         self.productName = productName
         self.dateRange = dateRange
@@ -47,7 +69,7 @@ class CloudSatJobs:
         self.jobType = jobType
         self.fieldNames = fieldNames
         if logFile == None:
-            logFile = f'./{jobId}_logs.txt'
+            logFile = f'./jobsInfo/{jobId}_logs.txt'
         self.logFile = logFile
 
         logMsg = f'Successfully created {self.jobType} job: {self.jobId}.'
@@ -64,33 +86,75 @@ class CloudSatJobs:
         # dataframe that is a thumb of the job for quick visualization
         self.jobThumb = None
 
-    def plotJobThumbnail(self):
+
+    def plotJobThumbnail(self, plottedColumn = "Radar_Reflectivity"):
         '''
         Plot the stored thumbnail of the job and store into workDir
         You may define different ways of plotting jobThumb
-        :return:
+        Automatically detect if the thumbnail is 2d or 3d
+        If 3d, use 'TAI_start' + 'Profile_time' as x axies, 'Height' as y axies,
+        plottedColumn as plotted value
+        If 2d, use 'Longitude' as x axies, 'Latitude' as y axies, plottedColumn
+        as plotted value
+
+        update: The plot was so inconsistent. Should multiply the time with velocity in meter
+        Now, set it to 700 000
+
+        :return: plt, ax
         '''
-        import matplotlib.pyplot as plt
-
         df = self.jobThumb
-        df['X_values'] = df['TAI_start'] + df['Profile_time']
+        if type(df) == type(None):
+            msg = f"Failed to generate thumbnail for {self.jobType} job: {self.jobId}. The job doesn't have a thumbnail so far."
+            self.saveJobLog(msg, err=True)
+            return None, None
+        if plottedColumn not in df.columns:
+            msg = f"Failed to generate thumbnail for {self.jobType} job: {self.jobId}. No column called {plottedColumn}."
+            self.saveJobLog(msg, err = True)
+            return None, None
+        if 'Height' in df.columns and 'TAI_start' in df.columns and 'Profile_time' in df.columns:
+            # a 3d plot
+            # the 700000 rescales the unit from a time unit to meter
+            df['X_values'] = 700000 * (df['TAI_start'] + df['Profile_time'])
 
-        # Set up the plot
-        fig, ax = plt.subplots()
+            # Set up the plot
+            fig, ax = plt.subplots()
 
-        # Create scatter plot
-        scatter = ax.scatter(df['X_values'], df['Height'], c=df['Radar_Reflectivity'], cmap='viridis')
+            # Create scatter plot
+            scatter = ax.scatter(df['X_values'], df['Height'], c=df[plottedColumn], cmap='viridis')
 
-        # Add a colorbar
-        cbar = plt.colorbar(scatter)
-        cbar.set_label('Radar Reflectivity')
+            # Add a colorbar
+            cbar = plt.colorbar(scatter)
+            cbar.set_label(plottedColumn)
 
-        # Label the axes
-        ax.set_xlabel('Sum of TAI_start and Profile_time')
-        ax.set_ylabel('Height')
+            # Label the axes
+            ax.set_xlabel('Time')
+            ax.set_ylabel('Height')
 
-        # Show the plot
-        plt.show()
+            return fig, ax
+
+        elif 'Latitude' in df.columns and 'Longitude' in df.columns:
+            # a 2d plot
+            # Set up the plot
+            fig, ax = plt.subplots()
+
+            # Create scatter plot
+            scatter = ax.scatter(df['Longitude'], df['Latitude'], c=df[plottedColumn], cmap='viridis')
+
+            # Add a colorbar
+            cbar = plt.colorbar(scatter)
+            cbar.set_label(plottedColumn)
+
+            # Label the axes
+            ax.set_xlabel('Longitude')
+            ax.set_ylabel('Latitude')
+
+            return fig, ax
+
+        else:
+            msg = f"Failed to generate thumbnail for {self.jobType} job: {self.jobId}. Can't find positional columns."
+            self.saveJobLog(msg, err=True)
+            return None, None
+
 
     def parseTrackRecord(self, taskType = 'download'):
         trackRecordFile = None
@@ -120,7 +184,6 @@ class CloudSatJobs:
         :return: str
         '''
         # unpack download progress
-        downloadTrackRecordFile = self.trackRecordsPaths['download_track_record']
         prtmsg = f'{self.jobType} job ID: {self.jobId}, job with parallel threads:'
         downloadProgress, unDownloadedFiles, downloadedFiles = self.parseTrackRecord('download')
         unDownloadedFilesCt = len(unDownloadedFiles)
@@ -128,7 +191,7 @@ class CloudSatJobs:
         overallFiles = unDownloadedFilesCt + downloadedFilesCt
         parsedProgress, unparsedFiles, parsedFiles = self.parseTrackRecord('parse')
         prtmsg = (prtmsg + f'\nDownload task progress: {downloadProgress}, {unDownloadedFilesCt}/{overallFiles};\n'
-                           + f'Parsing task progress: {parsedProgress}, {unparsedFiles}/{overallFiles}.')
+                           + f'Parsing task progress: {parsedProgress}, {len(unparsedFiles)}/{overallFiles}.')
         return prtmsg
 
     def saveJobLog(self, info, err = False, timeStamp = True):
@@ -430,7 +493,7 @@ class CloudSatJobs:
         '''
         Based on which type the job is, run the job.
         retry means whether the job once failed and is retrying.
-        :return: int
+        :return: bool: succeeded or failed
         '''
         logMsg = f'Start running a {self.jobType} job: {self.jobId}.'
         self.saveJobLog(logMsg)
@@ -458,37 +521,352 @@ class CloudSatJobs:
             downloadThread.join()
             localProcessThread.join()
 
+            # show and save the thumbnail of the job
+            fig, ax = self.plotJobThumbnail()
+            # Save the figure
+            fig.savefig(f"{self.workingDir}/{self.jobId}_thumbnail.png")  # Saves the plot as a PNG file
 
+            msg = f'Job: {self.jobId} is completed.'
+            self.saveJobLog(msg)
+            print(msg)
+            return True
 
-
+        return False
 
 
 
 class CloudSatDataManager:
     '''
-    A CloudSatDataManager object contains a SFTP connection to the CloudSat DPC server and
-    should be attached with a temp data folder for data throughput and analysis on our
-    local server
+    A CloudSatDataManager object is responsible for one local server.
+    It initializes and manages CloudSatJobs, and interacts with outside
+    callers, e.g., frontend frameworks.
 
-    tempDataDir: Path to the data that you want to use for throughput data
-    tempDataSizeWindow: Maximum amount of content stored in tempDataDir in bytes
+    dataThroughputDir: Path to the directory that you want to use for throughput data
+    serviceSpaceSize: Maximum disk use for the service. Unit: Bytes
     1GB = 1024 * 1024 * 1024 by default
     '''
-    def __init__(self, tempDataDir = '../tempDataFolder', tempDataSizeWindow = 1024 * 1024 * 1024):
-        self.tempDataDir = tempDataDir
-        self.tempDataSizeWindow = tempDataSizeWindow
-        self.jobIdList = set()
+    def __init__(self, dataThroughputDir = '../dataThroughPutRecords', serviceSapceSize = 50 * 1024 * 1024 * 1024, logFile = './serviceLogs.txt'):
+        self.dataThroughputDir = dataThroughputDir
+        self.serviceSpaceSize = serviceSapceSize
+        self.jobIdList = set()  # all the jobs' id received. In oneof{completed, not_ran, failed, running}
+        self.jobList = []  # all the job objects
+        self.runningJobList = {}  # Dict{jobId: multiprocessingProcess}
+        self.jobStatusRecord = './jobStatus.json'
+        jobStatusRecord = {
+        'completed_jobs': [],
+        'failed_jobs': [],
+        'not_ran_jobs': [],  # the jobs that have not yet ran. Should be initialized by initAJob()
+        'running_jobs': []
+        }
+        jobStatusRecordJsonObj = json.dumps(jobStatusRecord)
+        with open(self.jobStatusRecord, 'w') as jobStatusFile:
+            jobStatusFile.write(jobStatusRecordJsonObj)
+
         self.hdfDataParser = hdfDataParsing.hdfDataParsing()
+        self.logFile = logFile
+        # if the log files doesn't exist, create one
+        if not os.path.exists(self.logFile):
+            with open(self.logFile, 'w') as f:
+                f.write("")
+
+        self.maxJobsRunning = 10
+
+
+    def saveJobLog(self, info, err = False, timeStamp = True):
+        '''
+        Save info to
+        :param str
+        :return: str
+        '''
+        if info[-1:] != '\n':
+            # if there is no line breakers, append one to the end of the log message
+            info = info + '\n'
+        if timeStamp:
+            # add a time stamp
+            taiTimeStamp = time.time()
+            timeStamp = datetime.datetime.fromtimestamp(taiTimeStamp)
+            info = str(timeStamp) + ': ' + info
+        if err:
+            print(info, file=sys.stderr)
+        with open(self.logFile, 'a') as file:
+            print(info, file=file)
+        return info
 
     def jobId2SpacePaths(self, jobId):
         '''
+        The function distributes a working space for the job with jobId
+        Return info includes Dict{jobProgressTrackRecordName: path2it} and the direcotry under which
+        the job is run
         :param jobId: int or str
         :return: (fileTrackRecordsFilePath, spaceFolderPath)
         '''
-        tractkecordsFilePath = self.tempDataDir + f"/{jobId}.txt"
-        spaceFolderPath = self.tempDataDir + f"/{jobId}"
+        trackRecordFilePaths = {}
+        trackRecordFilePaths['download_track_record'] = f'./jobsInfo/{jobId}_downloading_task.json'
+        trackRecordFilePaths['parsing_track_record'] = f'./jobsInfo/{jobId}_parsing_task.json'
 
-        return (tractkecordsFilePath, spaceFolderPath)
+        downloadRecord = {
+            'progress': 0.0,
+            'to_do_list': [],
+            'downloaded_files': []
+        }
+
+        parsingRecord = {
+            'progress': 0.0,
+            'to_do_list': [],
+            'parsed': []
+        }
+
+        downloadRecordJsonObj = json.dumps(downloadRecord)
+        parsingRecordJsonObj = json.dumps(parsingRecord)
+
+        with open(trackRecordFilePaths['download_track_record'], 'w') as trackRecordFile:
+            trackRecordFile.write(downloadRecordJsonObj)
+
+        with open(trackRecordFilePaths['parsing_track_record'], 'w') as trackRecordFile:
+            trackRecordFile.write(parsingRecordJsonObj)
+
+        spaceFolderPath = self.dataThroughputDir + f"/{jobId}"
+
+        return (trackRecordFilePaths, spaceFolderPath)
+
+    def jobId2SpaceSize(self):
+        '''
+        Implement space size distribution algorithms here
+        :param jobId: int or str
+        :return: int. Unit: Bytes
+        '''
+        sizeUsed = common_functions.commonFunctions.get_folder_size(self.dataThroughputDir)
+        minSpace4Job = 10 * 1024 * 1024 * 1024
+        return minSpace4Job
+
+
+
+
+        if sizeUsed > self.serviceSpaceSize:
+            return 0
+        sizeLeft = self.serviceSpaceSize - sizeUsed
+        if sizeLeft < minSpace4Job:
+            return 0
+        else:
+            return min([minSpace4Job, sizeLeft / 3])
+
+    def initAJob(self, **jobInfo):
+        '''
+        The function initializes a CloudSatJob and append it to the job list
+        :param jobInfo: Dict{jobAttribute: valueForJobInitialization}
+        :return: jobId or None if failed
+        '''
+        if jobInfo.get('jobType') == 'Query':
+            # this is a query job, do the implementation here:
+            initInfo = {}
+            initInfo.update(jobInfo)
+
+            # The received info shouldn't include the info about how we manage it
+            # so we should handle it here
+            jobId = jobInfo.get('jobId')
+            # distribute a work space for the job
+            jobTrackRecordsFilePaths, jobSpace = self.jobId2SpacePaths(jobId)
+            initInfo['workingDir'] = jobSpace
+            initInfo['trackRecordsPaths'] = jobTrackRecordsFilePaths
+            # distribute a space for the job
+            jobSpaceSize = self.jobId2SpaceSize()
+            initInfo['spaceLimit'] = jobSpaceSize
+
+            # now, pass the parameters to initialize a CloudSat data query job
+            try:
+                job = CloudSatJobs(**initInfo)
+                # save log
+                msg = f'A new job {jobId} is created successfully: {initInfo}.'
+                self.saveJobLog(msg)
+
+                return (jobId, job)
+            except Exception as e:
+                msg = str(e)
+                self.saveJobLog(msg, err=True)
+
+
+        else:
+            msg = f'The job is not supported so far. Request rejected.'
+            self.saveJobLog(msg, err=True)
+
+    def receiveRequest(self):
+        '''
+        Listen to requests, then parse and initialize it as a job.
+        :return:
+        '''
+        already_seen_files = set(os.listdir('./requests'))  # Track files already parsed
+
+        while True:
+            # receive requests every 1 second
+            time.sleep(1)  # Check every 1 second
+            current_files = set(os.listdir('./requests'))
+            new_files = current_files - already_seen_files
+
+            for file_name in new_files:
+                if file_name.endswith('.json'):
+                    full_path = os.path.join('./requests', file_name)
+                    processedPath = './requests/processed_requests'
+                    jobInitInfo = common_functions.commonFunctions.parse_json(full_path, processedPath)
+                    msg = f'Received a request: {jobInitInfo}.'
+                    self.saveJobLog(msg)
+                    print(msg)
+
+                    # handle the request
+                    jobId, job = self.initAJob(**jobInitInfo)
+                    # update service status
+                    if jobId:
+                        self.jobIdList.add(jobId)
+                        self.jobList.append(job)
+
+                        with open(self.jobStatusRecord, 'r') as statusRecord:
+                            statusDict = json.load(statusRecord)
+
+                        statusDict['not_ran_jobs'].append(jobId)
+                        statusJsonObj = json.dumps(statusDict, indent=4)
+                        with open(self.jobStatusRecord, 'w') as statusRecord:
+                            statusRecord.write(statusJsonObj)
+                    elif jobId == None:
+                        msg = f'Failed to create job: {jobInitInfo}.'
+                        self.saveJobLog(msg, err = True)
+                        continue
+
+                    msg = f'job: {jobId} created.'
+                    self.saveJobLog(msg)
+                    print(self.jobList[-1])
+
+            already_seen_files.update(new_files)
+
+
+    def manageJobs(self):
+        '''
+        Manage the jobs so that the service is run within allowed space size.
+        Monitor and retry failed jobs.
+        This function now runs jobs in parallel using processes.
+        Maintain jobStatus.json here:
+        {
+        completed_jobs: [],
+        failed_jobs: [],
+        not_ran_jobs: [],  # the jobs that have not yet ran. Should be initialized by initAJob()
+        running_jobs: []
+        }
+        :return:
+        '''
+        # initialize and start/retry the not_ran/failed jobs
+        while True:
+            # parse the service status
+            with open(self.jobStatusRecord, 'r') as statusRecord:
+                jobStatus = json.load(statusRecord)
+
+            # first, monitor the running job
+            for jobId, runningJobProcess in self.runningJobList.items():
+                if runningJobProcess == None:
+                    # the job has been completed. Ignore it.
+                    continue
+
+                if not runningJobProcess.is_alive():
+                    # the job terminates
+                    msg = f'Job {jobId} terminates.'
+                    self.saveJobLog(msg)
+                    print(jobId)
+                    print(jobStatus['running_jobs'])
+                    jobStatus['running_jobs'].remove(jobId)
+                    self.runningJobList[jobId] = None
+
+                    # check if the job is successful:
+                    for job in self.jobList:
+                        if job.jobId == jobId:
+                            jobProgressRecordPaths = job.trackRecordsPaths
+                            jobParsingTaskRecordPath = jobProgressRecordPaths['parsing_track_record']
+                            with open(jobParsingTaskRecordPath, 'r') as trackRecordsFile:
+                                jobProgressDict = json.load(trackRecordsFile)
+                            progress = jobProgressDict['progress']
+                            if progress < 1:
+                                msg = f'Job {jobId} failed. Progress: {progress}.'
+                                self.saveJobLog(msg, err = True)
+                                jobStatus['failed_jobs'].append(jobId)
+                            else:
+                                # the job is completd
+                                jobStatus['completed_jobs'].append(jobId)
+
+            # then, manage the idling jobs
+            for job in self.jobList:
+                if job.jobId in jobStatus['not_ran_jobs']:
+                    # the job is not ran
+                    # start jobs until the max allowed disk size is used up
+                    sizeUsed = common_functions.commonFunctions.get_folder_size(self.dataThroughputDir)
+                    sizeLeft = self.serviceSpaceSize - sizeUsed
+                    if sizeLeft > job.spaceLimit:
+                        # have room for this job
+                        # run it
+                        msg = f'Service size is sufficient for job: {job.jobId} ({sizeLeft}/{self.serviceSpaceSize}). Start running the job.'
+                        self.saveJobLog(msg)
+
+                        # jobProcess = multiprocessing.Process(target=job.runJob, args=(False, ))
+                        # jobProcess.start()
+                        jobProcess = threading.Thread(target=job.runJob, args=(False, ))
+                        jobProcess.start()
+
+                        self.runningJobList[job.jobId] = jobProcess
+
+                        # update the service status
+                        jobStatus['not_ran_jobs'].remove(job.jobId)
+                        jobStatus['running_jobs'].append(job.jobId)
+
+
+                elif job.jobId in jobStatus['failed_jobs']:
+                    # the job was failed
+                    # start jobs until the max allowed disk size is used up
+                    sizeUsed = common_functions.commonFunctions.get_folder_size(self.dataThroughputDir)
+                    sizeLeft = self.serviceSpaceSize - sizeUsed
+                    if sizeLeft > job.spaceLimit:
+                        # have room for this job
+                        # run it
+                        msg = f'Service size is sufficient for job: {job.jobId} ({sizeLeft}/{self.serviceSpaceSize}). Restart the failed job.'
+                        self.saveJobLog(msg)
+
+                        # jobProcess = multiprocessing.Process(target=job.runJob, args=(True,))
+                        # jobProcess.start()
+                        jobProcess = threading.Thread(target=job.runJob, args=(True, ))
+                        jobProcess.start()
+
+                        self.runningJobList[job.jobId] = jobProcess
+
+                        # update the service status
+                        jobStatus['failed_jobs'].remove(job.jobId)
+                        jobStatus['running_jobs'].append(job.jobId)
+
+            # update the job status record
+            jobStatusJsonObj = json.dumps(jobStatus, indent=4)
+            with open(self.jobStatusRecord, 'w') as statusRecord:
+                statusRecord.write(jobStatusJsonObj)
+
+
+            time.sleep(30)
+
+
+    def runService(self):
+        '''
+        Process requests, initialize, Start, monitor, re-run existed jobs
+        Threading:
+            receiveRequest
+            ManageJobs
+        :return:
+        '''
+        msg = f'Service starts.'
+        self.saveJobLog(msg)
+
+        # start the threads
+        receiveRequestThread = threading.Thread(target=self.receiveRequest)
+        jobManagementThread = threading.Thread(target=self.manageJobs)
+
+        receiveRequestThread.start()
+        jobManagementThread.start()
+
+        receiveRequestThread.join()
+        jobManagementThread.join()
+
+
+
 
 
 
@@ -510,7 +888,8 @@ databasePath = './testDB'
 tempDataDir = "/Users/leo.li27/Documents/uwaterloo/research/CloudSat/CloudSatWebProjects/tempDataFolder"
 CSDM = CloudSatDataManager(tempDataDir)
 CSDM.readABatchOfData(jobId, fieldNames, databasePath)
-'''
+
+
 
 WD = '../dataThroughPutRecords/0001'
 trackRecordFilePaths = {'download_track_record': './0001Download.json',
@@ -519,3 +898,22 @@ filterCriteria = {'Height': ('3d', '>=', 1200)}
 testJob = CloudSatJobs('0001', WD, 20000000000, trackRecordFilePaths,
                        ['2012-02-03T00:00:00', '2012-02-04T00:00:00'], filterCriteria=filterCriteria)
 testJob.runJob(retry=False)
+
+
+
+WD = '../dataThroughPutRecords/0001'
+trackRecordFilePaths = {'download_track_record': './0001Download.json',
+                        'parsing_track_record': './0001Parse.json'}
+filterCriteria = {'Height': ('3d', '>=', 1200)}
+testJob = CloudSatJobs(jobId='0001', workingDir=WD, spaceLimit=20000000000, trackRecordsPaths=trackRecordFilePaths,
+                       dateRange = ['2012-02-03T00:00:00', '2012-02-04T00:00:00'], filterCriteria=filterCriteria)
+testJob.runJob(retry=False)
+
+
+with open('./tempRequests/0001_request.json', 'r') as file:
+    para = json.load(file)
+testJob = CloudSatJobs(**para)
+testJob.runJob(retry=False)
+'''
+
+CloudSatDataManager().runService()
