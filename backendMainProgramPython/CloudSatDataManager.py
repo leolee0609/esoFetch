@@ -263,6 +263,7 @@ class CloudSatJobs:
         with open(parsingTrackRecordFilePath, 'w') as jsonFile:
             jsonFile.write(parsingTRJsonObject)
 
+        sourceServer.close()
         return targetFiles
 
     def getABatchOfData(self):
@@ -289,9 +290,11 @@ class CloudSatJobs:
         downloaded_files = progressRecordContent['downloaded_files']
         todo_list = progressRecordContent['to_do_list']
 
+
         downloadedCt = len(downloaded_files)
         leftFilesCt = len(todo_list)
         overallTargetsCt = downloadedCt + leftFilesCt
+
 
         if todo_list == []:
             # no new downloading tasks. Do nothing
@@ -405,12 +408,37 @@ class CloudSatJobs:
         serial, because we must make sure only one thread is modifying the database!!
         :return: filtered_dataframe
         '''
+        import sqlite3
+        conn = sqlite3.connect(self.databasePath)
+
+        # Create a cursor object
+        cursor = conn.cursor()
+
+        # Execute the SQL query to show tables
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+
+        # Fetch all the tables
+        tables = cursor.fetchall()
+
+        # Print the tables
+        for table in tables:
+            print(table[0])
+
+        # Close the cursor and connection
+        cursor.close()
+        conn.close()
+
         msg = f'Start filtering a batch of data.'
         self.saveJobLog(msg)
 
-        filteredDF = self.dataFilter.dataFilterDF(self.filterCriteria)
+        try:
+            filteredDF = self.dataFilter.dataFilterDF(self.filterCriteria)
+        except Exception as e:
+            print(f"Warning: Failed to filter data with error: {e}")
+
 
         msg = f'Filtering completed for the batch.'
+
         self.saveJobLog(msg)
         return filteredDF
 
@@ -438,7 +466,7 @@ class CloudSatJobs:
                 end_time = time.time()
                 exeTime = end_time - start_time
 
-    def runLocalProcessingThread(self, timeOutLimit = 9999999999):
+    def runLocalProcessingThread(self, timeOutLimit = 99999999999999999999):
         '''
         Thread for local processing. E.g., data parsing, dumping, and filtering
         :param timeOutLimit:
@@ -457,6 +485,9 @@ class CloudSatJobs:
             # find the todoFiles that are already downloaded. Those are to be parsed
             files = list(filter(lambda s: s in downloadedFiles, files))
             files = list(map(lambda s: self.workingDir + '/' + s, files))
+            # don't dump too many one time. Memory will exceed
+            files = files[:15]
+
 
             if files:
                 fieldNames = self.fieldNames
@@ -545,7 +576,7 @@ class CloudSatDataManager:
     serviceSpaceSize: Maximum disk use for the service. Unit: Bytes
     1GB = 1024 * 1024 * 1024 by default
     '''
-    def __init__(self, dataThroughputDir = '../dataThroughPutRecords', serviceSapceSize = 50 * 1024 * 1024 * 1024, logFile = './serviceLogs.txt'):
+    def __init__(self, dataThroughputDir = '/mnt/data/obs/CloudSatDataQueryJobs', serviceSapceSize = 30000000000000, logFile = './serviceLogs.txt'):
         self.dataThroughputDir = dataThroughputDir
         self.serviceSpaceSize = serviceSapceSize
         self.jobIdList = set()  # all the jobs' id received. In oneof{completed, not_ran, failed, running}

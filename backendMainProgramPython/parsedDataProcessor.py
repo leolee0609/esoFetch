@@ -57,6 +57,9 @@ class parsedDataProcessor:
         if 'sql' in filterCriteria.keys():
             # execute the sql directly
             sqlQuery = filterCriteria['sql']
+            if sqlQuery == "":
+                # there is not filtering
+                return []
 
         else:
             where_clause, params = common_functions.commonFunctions.create_where_clause(filterCriteria)

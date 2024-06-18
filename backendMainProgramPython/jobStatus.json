@@ -1,8 +1,8 @@
 {
-    "completed_jobs": [
-        "blind_zone_1"
-    ],
+    "completed_jobs": [],
     "failed_jobs": [],
     "not_ran_jobs": [],
-    "running_jobs": []
+    "running_jobs": [
+        "All_CS2BPROF_2015_2018_rerun2024_6_17_10"
+    ]
 }

@@ -1,0 +1,20 @@
+2024-06-16 04:52:07.548307: Successfully created Query job: All_CS2BPROF_2015_2018.
+
+2024-06-16 04:52:22.562965: Start running a Query job: All_CS2BPROF_2015_2018.
+
+2024-06-16 04:52:52.593956: Start running a Query job: All_CS2BPROF_2015_2018.
+
+2024-06-16 04:52:52.594729: Failed to generate thumbnail for Query job: All_CS2BPROF_2015_2018. The job doesn't have a thumbnail so far.
+
+2024-06-16 04:53:22.612512: Start running a Query job: All_CS2BPROF_2015_2018.
+
+2024-06-16 04:53:22.613348: Failed to generate thumbnail for Query job: All_CS2BPROF_2015_2018. The job doesn't have a thumbnail so far.
+
+2024-06-16 04:53:52.643653: Start running a Query job: All_CS2BPROF_2015_2018.
+
+2024-06-16 04:53:52.644435: Failed to generate thumbnail for Query job: All_CS2BPROF_2015_2018. The job doesn't have a thumbnail so far.
+
+2024-06-16 04:54:22.672634: Start running a Query job: All_CS2BPROF_2015_2018.
+
+2024-06-16 04:54:22.673470: Failed to generate thumbnail for Query job: All_CS2BPROF_2015_2018. The job doesn't have a thumbnail so far.
+

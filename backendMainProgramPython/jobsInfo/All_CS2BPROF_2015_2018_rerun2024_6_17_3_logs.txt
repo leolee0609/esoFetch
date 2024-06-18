@@ -1,0 +1,6 @@
+2024-06-17 17:23:35.758850: Successfully created Query job: All_CS2BPROF_2015_2018_rerun2024_6_17_3.
+
+2024-06-17 17:23:55.759381: Start running a Query job: All_CS2BPROF_2015_2018_rerun2024_6_17_3.
+
+2024-06-17 17:24:04.893138: Start downloading a new batch of data. Current progress: 0.0.
+
