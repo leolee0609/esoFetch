@@ -443,16 +443,17 @@ class CloudSatJobs:
         return filteredDF
 
 
-    def runDownloadThread(self, timeOutLimit = 1800):
+    def runDownloadThread(self):
         '''
         Thread for downloading task
         Make sure that the job has been initialized
+        Re-establish the connection if the connection expires
         :return:
         '''
         progress, todoFiles, downloadedFiles = self.parseTrackRecord('download')
         start_time = time.time()
         exeTime = 0
-        while todoFiles != [] and exeTime <= timeOutLimit:
+        while todoFiles != []:
             if common_functions.commonFunctions.get_folder_size(self.workingDir) <= self.spaceLimit:
                 condition = self.getABatchOfData()
 
@@ -466,7 +467,7 @@ class CloudSatJobs:
                 end_time = time.time()
                 exeTime = end_time - start_time
 
-    def runLocalProcessingThread(self, timeOutLimit = 99999999999999999999):
+    def runLocalProcessingThread(self):
         '''
         Thread for local processing. E.g., data parsing, dumping, and filtering
         :param timeOutLimit:
@@ -476,7 +477,7 @@ class CloudSatJobs:
         downProgress, tobeDownFiles, downloadedFiles = self.parseTrackRecord('download')
         start_time = time.time()
         exeTime = 0
-        while todoFiles != [] and exeTime <= timeOutLimit:
+        while todoFiles != []:
             # get all files in the todo list of parsing, and downloaded in the downloading
             progress, todoFiles, parsedFiles = self.parseTrackRecord('parse')
             downProgress, tobeDownFiles, downloadedFiles = self.parseTrackRecord('download')
@@ -520,7 +521,7 @@ class CloudSatJobs:
             exeTime = end_time - start_time
 
 
-    def runJob(self, retry = False, downloadTimeOutLimit = 1800):
+    def runJob(self, retry = False):
         '''
         Based on which type the job is, run the job.
         retry means whether the job once failed and is retrying.
@@ -543,8 +544,9 @@ class CloudSatJobs:
 
 
             # keep running the job until the job is completed
-            downloadThread = threading.Thread(target=self.runDownloadThread, args=(downloadTimeOutLimit, ))
+            downloadThread = threading.Thread(target=self.runDownloadThread, args=())
             localProcessThread = threading.Thread(target=self.runLocalProcessingThread)
+
 
             downloadThread.start()
             localProcessThread.start()
@@ -561,6 +563,7 @@ class CloudSatJobs:
             self.saveJobLog(msg)
             print(msg)
             return True
+
 
         return False
 
@@ -583,15 +586,17 @@ class CloudSatDataManager:
         self.jobList = []  # all the job objects
         self.runningJobList = {}  # Dict{jobId: multiprocessingProcess}
         self.jobStatusRecord = './jobStatus.json'
-        jobStatusRecord = {
-        'completed_jobs': [],
-        'failed_jobs': [],
-        'not_ran_jobs': [],  # the jobs that have not yet ran. Should be initialized by initAJob()
-        'running_jobs': []
-        }
-        jobStatusRecordJsonObj = json.dumps(jobStatusRecord)
-        with open(self.jobStatusRecord, 'w') as jobStatusFile:
-            jobStatusFile.write(jobStatusRecordJsonObj)
+        if not os.path.exists(self.jobStatusRecord):
+            # Create a new file with an empty dictionary
+            jobStatusRecord = {
+                'completed_jobs': [],
+                'failed_jobs': [],
+                'not_ran_jobs': [],  # the jobs that have not yet ran. Should be initialized by initAJob()
+                'running_jobs': []
+            }
+            with open(self.jobStatusRecord, 'w') as file:
+                json.dump(jobStatusRecord, file)
+
 
         self.hdfDataParser = hdfDataParsing.hdfDataParsing()
         self.logFile = logFile
@@ -667,7 +672,7 @@ class CloudSatDataManager:
         :return: int. Unit: Bytes
         '''
         sizeUsed = common_functions.commonFunctions.get_folder_size(self.dataThroughputDir)
-        minSpace4Job = 10 * 1024 * 1024 * 1024
+        minSpace4Job = 20 * 1024 * 1024 * 1024 * 1024
         return minSpace4Job
 
 
@@ -788,7 +793,45 @@ class CloudSatDataManager:
             with open(self.jobStatusRecord, 'r') as statusRecord:
                 jobStatus = json.load(statusRecord)
 
-            # first, monitor the running job
+            for jobId in jobStatus["running_jobs"]:
+                if jobId not in self.jobIdList:
+                    self.jobIdList.add(jobId)
+                    # the job is actually not completed. restart it
+                    msg = f'Job {jobId} terminated. Now, restart it.'
+                    self.saveJobLog(msg)
+                    jobInfo = common_functions.commonFunctions.find_first_json_with_jobId(
+                    './requests/processed_requests', jobId)
+
+                    jobId, job = self.initAJob(**jobInfo)
+                    # update service status
+                    if jobId:
+                        self.jobIdList.add(jobId)
+                        self.jobList.append(job)
+
+                    elif jobId == None:
+                        msg = f'Failed to reload job: {jobInfo}.'
+                        self.saveJobLog(msg, err=True)
+                        continue
+
+                    msg = f'job: {jobId} reloaded.'
+                    self.saveJobLog(msg)
+                    print(self.jobList[-1])
+
+                    sizeUsed = common_functions.commonFunctions.get_folder_size(self.dataThroughputDir)
+                    sizeLeft = self.serviceSpaceSize - sizeUsed
+                    if sizeLeft > job.spaceLimit:
+                        # have room for this job
+                        # run it
+                        msg = f'Service size is sufficient for job: {job.jobId} ({sizeLeft}/{self.serviceSpaceSize}). Start running the job.'
+                        self.saveJobLog(msg)
+
+                        jobProcess = threading.Thread(target=job.runJob, args=(True,))
+                        jobProcess.start()
+
+                        self.runningJobList[job.jobId] = jobProcess
+
+
+
             for jobId, runningJobProcess in self.runningJobList.items():
                 if runningJobProcess == None:
                     # the job has been completed. Ignore it.
@@ -895,6 +938,8 @@ class CloudSatDataManager:
 
         receiveRequestThread.join()
         jobManagementThread.join()
+
+
 
 
 

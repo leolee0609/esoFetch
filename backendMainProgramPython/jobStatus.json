@@ -1,8 +1,8 @@
 {
-    "completed_jobs": [],
+    "completed_jobs": [
+        "one_day_sample_4"
+    ],
     "failed_jobs": [],
     "not_ran_jobs": [],
-    "running_jobs": [
-        "All_CS2BPROF_2015_2018_rerun2024_6_17_10"
-    ]
+    "running_jobs": []
 }

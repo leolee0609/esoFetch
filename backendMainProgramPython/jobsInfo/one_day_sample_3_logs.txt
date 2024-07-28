@@ -1,0 +1,110 @@
+2024-06-25 18:57:01.806053: Successfully created Query job: one_day_sample_3.
+
+2024-06-25 18:57:28.832983: Start running a Query job: one_day_sample_3.
+
+2024-06-25 18:57:33.272557: Start downloading a new batch of data. Current progress: 0.0.
+
+2024-06-25 18:57:35.844228: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213123849_49258_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 8.490523338317871 MB of things downloaded. 
+Progress: 0.07142857142857142.
+
+2024-06-25 18:57:36.910066: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213173528_49261_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 17.047500610351562 MB of things downloaded. 
+Progress: 0.14285714285714285.
+
+2024-06-25 18:57:37.237105: Successfully created Query job: one_day_sample_3.
+
+2024-06-25 18:57:38.016128: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213223208_49264_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 25.569321632385254 MB of things downloaded. 
+Progress: 0.21428571428571427.
+
+2024-06-25 18:57:39.123863: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213010638_49251_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 34.126298904418945 MB of things downloaded. 
+Progress: 0.2857142857142857.
+
+2024-06-25 18:57:40.198758: Start running a Query job: one_day_sample_3.
+
+2024-06-25 18:57:40.200052: Start downloading a new batch of data. Current progress: 0.2857142857142857.
+
+2024-06-25 18:57:40.228281: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213042424_49253_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 42.542603492736816 MB of things downloaded. 
+Progress: 0.35714285714285715.
+
+2024-06-25 18:57:41.331016: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213060317_49254_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 51.00973701477051 MB of things downloaded. 
+Progress: 0.42857142857142855.
+
+2024-06-25 18:57:41.331100: Warning, the temp data dir is not cleared. The size is 53487586 now.
+
+2024-06-25 18:57:42.437997: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213155635_49260_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 59.5237455368042 MB of things downloaded. 
+Progress: 0.5.
+
+2024-06-25 18:57:42.718552: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213042424_49253_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 8.416304588317871 MB of things downloaded. 
+Progress: 0.35714285714285715.
+
+2024-06-25 18:57:43.543501: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213191421_49262_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 68.00259780883789 MB of things downloaded. 
+Progress: 0.5714285714285714.
+
+2024-06-25 18:57:43.729487: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213060317_49254_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 16.883438110351562 MB of things downloaded. 
+Progress: 0.42857142857142855.
+
+2024-06-25 18:57:44.646769: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213141742_49259_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 76.46968364715576 MB of things downloaded. 
+Progress: 0.6428571428571429.
+
+2024-06-25 18:57:44.849114: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213155635_49260_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 25.397446632385254 MB of things downloaded. 
+Progress: 0.5.
+
+2024-06-25 18:57:45.749418: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213205314_49263_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 84.88603591918945 MB of things downloaded. 
+Progress: 0.7142857142857143.
+
+2024-06-25 18:57:45.964024: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213191421_49262_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 33.876298904418945 MB of things downloaded. 
+Progress: 0.5714285714285714.
+
+2024-06-25 18:57:46.856935: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213092103_49256_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 93.40004444122314 MB of things downloaded. 
+Progress: 0.7857142857142857.
+
+2024-06-25 18:57:47.080389: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213141742_49259_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 42.343384742736816 MB of things downloaded. 
+Progress: 0.6428571428571429.
+
+2024-06-25 18:57:47.962310: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213105956_49257_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 101.94134902954102 MB of things downloaded. 
+Progress: 0.8571428571428571.
+
+2024-06-25 18:57:48.194575: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213205314_49263_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 50.75973701477051 MB of things downloaded. 
+Progress: 0.7142857142857143.
+
+2024-06-25 18:57:49.067114: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213074210_49255_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 110.4944200515747 MB of things downloaded. 
+Progress: 0.9285714285714286.
+
+2024-06-25 18:57:49.312509: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213092103_49256_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 59.2737455368042 MB of things downloaded. 
+Progress: 0.7857142857142857.
+
+2024-06-25 18:57:50.172415: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213024531_49252_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 118.93025588989258 MB of things downloaded. 
+Progress: 1.0.
+
+2024-06-25 18:57:50.172596: Downloading is completed.
+
+2024-06-25 18:57:50.172915: Start downloading a new batch of data. Current progress: 1.0.
+
+2024-06-25 18:57:50.172955: Downloading task of the Query job: one_day_sample_3 is completed.
+
+2024-06-25 18:57:50.428356: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213105956_49257_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 67.81505012512207 MB of things downloaded. 
+Progress: 0.8571428571428571.
+
+2024-06-25 18:57:51.543968: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213074210_49255_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 76.36812114715576 MB of things downloaded. 
+Progress: 0.9285714285714286.
+
+2024-06-25 18:57:52.658383: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213024531_49252_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 84.80395698547363 MB of things downloaded. 
+Progress: 1.0.
+
+2024-06-25 18:57:52.658538: Downloading is completed.
+
+2024-06-25 18:57:52.658968: Start downloading a new batch of data. Current progress: 1.0.
+
+2024-06-25 18:57:52.659018: Downloading task of the Query job: one_day_sample_3 is completed.
+
+2024-06-25 18:57:52.659148: Failed to generate thumbnail for Query job: one_day_sample_3. The job doesn't have a thumbnail so far.
+
+2024-06-25 18:57:53.292995: Failed to generate thumbnail for Query job: one_day_sample_3. The job doesn't have a thumbnail so far.
+
+2024-06-25 18:57:58.852480: Start running a Query job: one_day_sample_3.
+
+2024-06-25 18:57:58.853229: Failed to generate thumbnail for Query job: one_day_sample_3. The job doesn't have a thumbnail so far.
+
+2024-06-25 18:58:10.221566: Start running a Query job: one_day_sample_3.
+
+2024-06-25 18:58:10.222399: Failed to generate thumbnail for Query job: one_day_sample_3. The job doesn't have a thumbnail so far.
+

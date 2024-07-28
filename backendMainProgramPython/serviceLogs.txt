@@ -240,3 +240,341 @@
 
 2024-06-18 00:44:17.606519: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_10 (29738908443827/30000000000000). Start running the job.
 
+2024-06-18 11:27:48.539155: Service starts.
+
+2024-06-18 11:27:48.539915: Job All_CS2BPROF_2015_2018_rerun2024_6_17_10 terminated. Now, restart it.
+
+2024-06-18 11:27:51.461652: A new job All_CS2BPROF_2015_2018_rerun2024_6_17_10 is created successfully: {'jobId': 'All_CS2BPROF_2015_2018_rerun2024_6_17_10', 'jobType': 'Query', 'dateRange': ['2015-12-01T00:00:00', '2018-12-01T23:59:59'], 'filterCriteria': {'sql': ''}, 'workingDir': '/mnt/data/obs/CloudSatDataQueryJobs/All_CS2BPROF_2015_2018_rerun2024_6_17_10', 'trackRecordsPaths': {'download_track_record': './jobsInfo/All_CS2BPROF_2015_2018_rerun2024_6_17_10_downloading_task.json', 'parsing_track_record': './jobsInfo/All_CS2BPROF_2015_2018_rerun2024_6_17_10_parsing_task.json'}, 'spaceLimit': 10737418240}.
+
+2024-06-18 11:27:51.461813: job: All_CS2BPROF_2015_2018_rerun2024_6_17_10 reloaded.
+
+2024-06-18 11:33:51.277230: Service starts.
+
+2024-06-18 11:33:51.277973: Job All_CS2BPROF_2015_2018_rerun2024_6_17_10 terminated. Now, restart it.
+
+2024-06-18 11:33:54.193926: A new job All_CS2BPROF_2015_2018_rerun2024_6_17_10 is created successfully: {'jobId': 'All_CS2BPROF_2015_2018_rerun2024_6_17_10', 'jobType': 'Query', 'dateRange': ['2015-12-01T00:00:00', '2018-12-01T23:59:59'], 'filterCriteria': {'sql': ''}, 'workingDir': '/mnt/data/obs/CloudSatDataQueryJobs/All_CS2BPROF_2015_2018_rerun2024_6_17_10', 'trackRecordsPaths': {'download_track_record': './jobsInfo/All_CS2BPROF_2015_2018_rerun2024_6_17_10_downloading_task.json', 'parsing_track_record': './jobsInfo/All_CS2BPROF_2015_2018_rerun2024_6_17_10_parsing_task.json'}, 'spaceLimit': 10737418240}.
+
+2024-06-18 11:33:54.194067: job: All_CS2BPROF_2015_2018_rerun2024_6_17_10 reloaded.
+
+2024-06-18 11:33:54.194409: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_10 (29746052585544/30000000000000). Start running the job.
+
+2024-06-18 11:34:24.196119: Job All_CS2BPROF_2015_2018_rerun2024_6_17_10 terminates.
+
+2024-06-18 11:34:24.196233: Job All_CS2BPROF_2015_2018_rerun2024_6_17_10 failed. Progress: 0.0.
+
+2024-06-18 11:34:24.196403: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_10 (29746052585544/30000000000000). Restart the failed job.
+
+2024-06-18 11:34:54.224153: Job All_CS2BPROF_2015_2018_rerun2024_6_17_10 terminates.
+
+2024-06-18 11:34:54.224292: Job All_CS2BPROF_2015_2018_rerun2024_6_17_10 failed. Progress: 0.0.
+
+2024-06-18 11:34:54.224456: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_10 (29746052585544/30000000000000). Restart the failed job.
+
+2024-06-18 11:35:24.236609: Job All_CS2BPROF_2015_2018_rerun2024_6_17_10 terminates.
+
+2024-06-18 11:35:24.236719: Job All_CS2BPROF_2015_2018_rerun2024_6_17_10 failed. Progress: 0.0.
+
+2024-06-18 11:35:24.236893: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_10 (29746052585544/30000000000000). Restart the failed job.
+
+2024-06-18 11:35:53.023151: Service starts.
+
+2024-06-18 11:36:14.045224: Received a request: {'jobId': 'All_CS2BPROF_2015_2018_rerun2024_6_17_11', 'jobType': 'Query', 'dateRange': ['2015-12-01T00:00:00', '2018-12-01T23:59:59'], 'filterCriteria': {'sql': ''}}.
+
+2024-06-18 11:36:16.940470: A new job All_CS2BPROF_2015_2018_rerun2024_6_17_11 is created successfully: {'jobId': 'All_CS2BPROF_2015_2018_rerun2024_6_17_11', 'jobType': 'Query', 'dateRange': ['2015-12-01T00:00:00', '2018-12-01T23:59:59'], 'filterCriteria': {'sql': ''}, 'workingDir': '/mnt/data/obs/CloudSatDataQueryJobs/All_CS2BPROF_2015_2018_rerun2024_6_17_11', 'trackRecordsPaths': {'download_track_record': './jobsInfo/All_CS2BPROF_2015_2018_rerun2024_6_17_11_downloading_task.json', 'parsing_track_record': './jobsInfo/All_CS2BPROF_2015_2018_rerun2024_6_17_11_parsing_task.json'}, 'spaceLimit': 10737418240}.
+
+2024-06-18 11:36:16.940849: job: All_CS2BPROF_2015_2018_rerun2024_6_17_11 created.
+
+2024-06-18 11:36:23.041607: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_11 (29746052585544/30000000000000). Start running the job.
+
+2024-06-18 16:39:36.789466: Service starts.
+
+2024-06-18 16:39:36.790226: Job All_CS2BPROF_2015_2018_rerun2024_6_17_11 terminated. Now, restart it.
+
+2024-06-18 16:39:39.709116: A new job All_CS2BPROF_2015_2018_rerun2024_6_17_11 is created successfully: {'jobId': 'All_CS2BPROF_2015_2018_rerun2024_6_17_11', 'jobType': 'Query', 'dateRange': ['2015-12-01T00:00:00', '2018-12-01T23:59:59'], 'filterCriteria': {'sql': ''}, 'workingDir': '/mnt/data/obs/CloudSatDataQueryJobs/All_CS2BPROF_2015_2018_rerun2024_6_17_11', 'trackRecordsPaths': {'download_track_record': './jobsInfo/All_CS2BPROF_2015_2018_rerun2024_6_17_11_downloading_task.json', 'parsing_track_record': './jobsInfo/All_CS2BPROF_2015_2018_rerun2024_6_17_11_parsing_task.json'}, 'spaceLimit': 21990232555520}.
+
+2024-06-18 16:39:39.709253: job: All_CS2BPROF_2015_2018_rerun2024_6_17_11 reloaded.
+
+2024-06-18 16:39:39.709590: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_11 (29746052585544/30000000000000). Start running the job.
+
+2024-06-18 16:42:26.660035: Service starts.
+
+2024-06-18 16:42:26.660795: Job All_CS2BPROF_2015_2018_rerun2024_6_17_11 terminated. Now, restart it.
+
+2024-06-18 16:42:29.594631: A new job All_CS2BPROF_2015_2018_rerun2024_6_17_11 is created successfully: {'jobId': 'All_CS2BPROF_2015_2018_rerun2024_6_17_11', 'jobType': 'Query', 'dateRange': ['2015-12-01T00:00:00', '2018-12-01T23:59:59'], 'filterCriteria': {'sql': ''}, 'workingDir': '/mnt/data/obs/CloudSatDataQueryJobs/All_CS2BPROF_2015_2018_rerun2024_6_17_11', 'trackRecordsPaths': {'download_track_record': './jobsInfo/All_CS2BPROF_2015_2018_rerun2024_6_17_11_downloading_task.json', 'parsing_track_record': './jobsInfo/All_CS2BPROF_2015_2018_rerun2024_6_17_11_parsing_task.json'}, 'spaceLimit': 21990232555520}.
+
+2024-06-18 16:42:29.594778: job: All_CS2BPROF_2015_2018_rerun2024_6_17_11 reloaded.
+
+2024-06-18 16:42:29.595091: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_11 (29746052585544/30000000000000). Start running the job.
+
+2024-06-18 16:42:34.668376: Received a request: {'jobId': 'All_CS2BPROF_2015_2018_rerun2024_6_17_12', 'jobType': 'Query', 'dateRange': ['2015-12-01T00:00:00', '2018-12-01T23:59:59'], 'filterCriteria': {'sql': ''}}.
+
+2024-06-18 16:42:37.615772: A new job All_CS2BPROF_2015_2018_rerun2024_6_17_12 is created successfully: {'jobId': 'All_CS2BPROF_2015_2018_rerun2024_6_17_12', 'jobType': 'Query', 'dateRange': ['2015-12-01T00:00:00', '2018-12-01T23:59:59'], 'filterCriteria': {'sql': ''}, 'workingDir': '/mnt/data/obs/CloudSatDataQueryJobs/All_CS2BPROF_2015_2018_rerun2024_6_17_12', 'trackRecordsPaths': {'download_track_record': './jobsInfo/All_CS2BPROF_2015_2018_rerun2024_6_17_12_downloading_task.json', 'parsing_track_record': './jobsInfo/All_CS2BPROF_2015_2018_rerun2024_6_17_12_parsing_task.json'}, 'spaceLimit': 21990232555520}.
+
+2024-06-18 16:42:37.616204: job: All_CS2BPROF_2015_2018_rerun2024_6_17_12 created.
+
+2024-06-18 16:42:59.607880: Job All_CS2BPROF_2015_2018_rerun2024_6_17_11 terminates.
+
+2024-06-18 16:42:59.608023: Job All_CS2BPROF_2015_2018_rerun2024_6_17_11 failed. Progress: 0.0.
+
+2024-06-18 16:42:59.608222: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_11 (29746052585544/30000000000000). Restart the failed job.
+
+2024-06-18 16:42:59.609396: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_12 (29746052585544/30000000000000). Start running the job.
+
+2024-06-18 16:43:29.640532: Job All_CS2BPROF_2015_2018_rerun2024_6_17_11 terminates.
+
+2024-06-18 16:43:29.640701: Job All_CS2BPROF_2015_2018_rerun2024_6_17_11 failed. Progress: 0.0.
+
+2024-06-18 16:43:29.641040: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_11 (29746052585544/30000000000000). Restart the failed job.
+
+2024-06-18 16:43:59.647287: Job All_CS2BPROF_2015_2018_rerun2024_6_17_11 terminates.
+
+2024-06-18 16:43:59.647412: Job All_CS2BPROF_2015_2018_rerun2024_6_17_11 failed. Progress: 0.0.
+
+2024-06-18 16:43:59.647630: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_11 (29746052585544/30000000000000). Restart the failed job.
+
+2024-06-18 16:44:29.678307: Job All_CS2BPROF_2015_2018_rerun2024_6_17_11 terminates.
+
+2024-06-18 16:44:29.678416: Job All_CS2BPROF_2015_2018_rerun2024_6_17_11 failed. Progress: 0.0.
+
+2024-06-18 16:44:29.678599: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_11 (29746052585544/30000000000000). Restart the failed job.
+
+2024-06-18 16:44:59.695114: Job All_CS2BPROF_2015_2018_rerun2024_6_17_11 terminates.
+
+2024-06-18 16:44:59.695222: Job All_CS2BPROF_2015_2018_rerun2024_6_17_11 failed. Progress: 0.0.
+
+2024-06-18 16:44:59.695414: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_11 (29746052585544/30000000000000). Restart the failed job.
+
+2024-06-18 16:45:29.726187: Job All_CS2BPROF_2015_2018_rerun2024_6_17_11 terminates.
+
+2024-06-18 16:45:29.726304: Job All_CS2BPROF_2015_2018_rerun2024_6_17_11 failed. Progress: 0.0.
+
+2024-06-18 16:45:29.726485: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_11 (29746052585544/30000000000000). Restart the failed job.
+
+2024-06-18 16:45:59.757104: Job All_CS2BPROF_2015_2018_rerun2024_6_17_11 terminates.
+
+2024-06-18 16:45:59.757230: Job All_CS2BPROF_2015_2018_rerun2024_6_17_11 failed. Progress: 0.0.
+
+2024-06-18 16:45:59.757265: Job All_CS2BPROF_2015_2018_rerun2024_6_17_12 terminates.
+
+2024-06-18 16:45:59.757326: Job All_CS2BPROF_2015_2018_rerun2024_6_17_12 failed. Progress: 0.0.
+
+2024-06-18 16:45:59.757507: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_11 (29746052585544/30000000000000). Restart the failed job.
+
+2024-06-18 16:45:59.758487: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_12 (29746052585544/30000000000000). Restart the failed job.
+
+2024-06-18 16:46:29.790028: Job All_CS2BPROF_2015_2018_rerun2024_6_17_11 terminates.
+
+2024-06-18 16:46:29.790196: Job All_CS2BPROF_2015_2018_rerun2024_6_17_11 failed. Progress: 0.0.
+
+2024-06-18 16:46:29.790265: Job All_CS2BPROF_2015_2018_rerun2024_6_17_12 terminates.
+
+2024-06-18 16:46:29.790341: Job All_CS2BPROF_2015_2018_rerun2024_6_17_12 failed. Progress: 0.0.
+
+2024-06-18 16:46:29.790519: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_11 (29746052585544/30000000000000). Restart the failed job.
+
+2024-06-18 16:46:29.791670: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_12 (29746052585544/30000000000000). Restart the failed job.
+
+2024-06-18 16:46:49.762580: Service starts.
+
+2024-06-18 16:46:54.768896: Received a request: {'jobId': 'All_CS2BPROF_2015_2018_rerun2024_6_17_13', 'jobType': 'Query', 'dateRange': ['2015-12-01T00:00:00', '2018-12-01T23:59:59'], 'filterCriteria': {'sql': ''}}.
+
+2024-06-18 16:46:57.669306: A new job All_CS2BPROF_2015_2018_rerun2024_6_17_13 is created successfully: {'jobId': 'All_CS2BPROF_2015_2018_rerun2024_6_17_13', 'jobType': 'Query', 'dateRange': ['2015-12-01T00:00:00', '2018-12-01T23:59:59'], 'filterCriteria': {'sql': ''}, 'workingDir': '/mnt/data/obs/CloudSatDataQueryJobs/All_CS2BPROF_2015_2018_rerun2024_6_17_13', 'trackRecordsPaths': {'download_track_record': './jobsInfo/All_CS2BPROF_2015_2018_rerun2024_6_17_13_downloading_task.json', 'parsing_track_record': './jobsInfo/All_CS2BPROF_2015_2018_rerun2024_6_17_13_parsing_task.json'}, 'spaceLimit': 21990232555520}.
+
+2024-06-18 16:46:57.669787: job: All_CS2BPROF_2015_2018_rerun2024_6_17_13 created.
+
+2024-06-18 16:47:19.794011: Service size is sufficient for job: All_CS2BPROF_2015_2018_rerun2024_6_17_13 (29746052585544/30000000000000). Start running the job.
+
+2024-06-19 22:54:12.622498: Received a request: {'jobId': 'two_months_profiles', 'jobType': 'Query', 'dateRange': ['2015-08-01T00:00:00', '2015-10-01T00:00:00'], 'filterCriteria': {'sql': ''}}.
+
+2024-06-19 22:54:24.947073: A new job two_months_profiles is created successfully: {'jobId': 'two_months_profiles', 'jobType': 'Query', 'dateRange': ['2015-08-01T00:00:00', '2015-10-01T00:00:00'], 'filterCriteria': {'sql': ''}, 'workingDir': '/mnt/data/obs/CloudSatDataQueryJobs/two_months_profiles', 'trackRecordsPaths': {'download_track_record': './jobsInfo/two_months_profiles_downloading_task.json', 'parsing_track_record': './jobsInfo/two_months_profiles_parsing_task.json'}, 'spaceLimit': 21990232555520}.
+
+2024-06-19 22:54:24.947528: job: two_months_profiles created.
+
+2024-06-19 22:54:54.351161: Service size is sufficient for job: two_months_profiles (28806070326718/30000000000000). Start running the job.
+
+2024-06-19 23:07:03.817883: Received a request: {'jobId': 'one_week_profiles', 'jobType': 'Query', 'dateRange': ['2015-08-01T00:00:00', '2015-08-08T23:59:59'], 'filterCriteria': {}}.
+
+2024-06-19 23:07:06.753365: A new job one_week_profiles is created successfully: {'jobId': 'one_week_profiles', 'jobType': 'Query', 'dateRange': ['2015-08-01T00:00:00', '2015-08-08T23:59:59'], 'filterCriteria': {}, 'workingDir': '/mnt/data/obs/CloudSatDataQueryJobs/one_week_profiles', 'trackRecordsPaths': {'download_track_record': './jobsInfo/one_week_profiles_downloading_task.json', 'parsing_track_record': './jobsInfo/one_week_profiles_parsing_task.json'}, 'spaceLimit': 21990232555520}.
+
+2024-06-19 23:07:06.753774: job: one_week_profiles created.
+
+2024-06-19 23:07:25.022803: Service size is sufficient for job: one_week_profiles (28791150391703/30000000000000). Start running the job.
+
+2024-06-19 23:10:25.159271: Job one_week_profiles terminates.
+
+2024-06-19 23:10:25.159426: Job one_week_profiles failed. Progress: 0.0603448275862069.
+
+2024-06-19 23:10:25.194248: Service size is sufficient for job: one_week_profiles (28783890256978/30000000000000). Restart the failed job.
+
+2024-06-19 23:16:25.528020: Job one_week_profiles terminates.
+
+2024-06-19 23:16:25.528181: Job one_week_profiles failed. Progress: 0.1896551724137931.
+
+2024-06-19 23:16:25.562916: Service size is sufficient for job: one_week_profiles (28774365077067/30000000000000). Restart the failed job.
+
+2024-06-19 23:22:25.831891: Job one_week_profiles terminates.
+
+2024-06-19 23:22:25.832058: Job one_week_profiles failed. Progress: 0.31896551724137934.
+
+2024-06-19 23:22:25.866047: Service size is sufficient for job: one_week_profiles (28764798381864/30000000000000). Restart the failed job.
+
+2024-06-19 23:28:26.199926: Job one_week_profiles terminates.
+
+2024-06-19 23:28:26.200102: Job one_week_profiles failed. Progress: 0.4482758620689655.
+
+2024-06-19 23:28:26.234859: Service size is sufficient for job: one_week_profiles (28755223925997/30000000000000). Restart the failed job.
+
+2024-06-19 23:34:26.526536: Job one_week_profiles terminates.
+
+2024-06-19 23:34:26.526792: Job one_week_profiles failed. Progress: 0.5775862068965517.
+
+2024-06-19 23:34:26.561417: Service size is sufficient for job: one_week_profiles (28745461275462/30000000000000). Restart the failed job.
+
+2024-06-19 23:40:26.908438: Job one_week_profiles terminates.
+
+2024-06-19 23:40:26.908674: Job one_week_profiles failed. Progress: 0.7068965517241379.
+
+2024-06-19 23:40:26.942333: Service size is sufficient for job: one_week_profiles (28735733976303/30000000000000). Restart the failed job.
+
+2024-06-19 23:46:27.172930: Job one_week_profiles terminates.
+
+2024-06-19 23:46:27.173106: Job one_week_profiles failed. Progress: 0.8362068965517241.
+
+2024-06-19 23:46:27.207830: Service size is sufficient for job: one_week_profiles (28721235901947/30000000000000). Restart the failed job.
+
+2024-06-19 23:52:27.480366: Job one_week_profiles terminates.
+
+2024-06-19 23:52:27.480582: Job one_week_profiles failed. Progress: 0.9655172413793104.
+
+2024-06-19 23:52:27.531336: Service size is sufficient for job: one_week_profiles (28712157708048/30000000000000). Restart the failed job.
+
+2024-06-19 23:54:27.604589: Job one_week_profiles terminates.
+
+2024-06-21 02:00:11.325865: Received a request: {'jobId': 'one_day_sample', 'jobType': 'Query', 'dateRange': ['2015-08-01T00:00:00', '2015-08-02T00:00:00'], 'filterCriteria': {}}.
+
+2024-06-21 02:00:37.760417: A new job one_day_sample is created successfully: {'jobId': 'one_day_sample', 'jobType': 'Query', 'dateRange': ['2015-08-01T00:00:00', '2015-08-02T00:00:00'], 'filterCriteria': {}, 'workingDir': '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample', 'trackRecordsPaths': {'download_track_record': './jobsInfo/one_day_sample_downloading_task.json', 'parsing_track_record': './jobsInfo/one_day_sample_parsing_task.json'}, 'spaceLimit': 21990232555520}.
+
+2024-06-21 02:00:37.770693: job: one_day_sample created.
+
+2024-06-21 02:01:00.323334: Service size is sufficient for job: one_day_sample (28656162598020/30000000000000). Start running the job.
+
+2024-06-21 02:04:00.505360: Job one_day_sample terminates.
+
+2024-06-21 02:04:00.505767: Job one_day_sample failed. Progress: 0.2413793103448276.
+
+2024-06-21 02:04:00.542885: Service size is sufficient for job: one_day_sample (28646417762928/30000000000000). Restart the failed job.
+
+2024-06-21 02:09:30.887741: Job one_day_sample terminates.
+
+2024-06-21 02:09:30.887887: Job one_day_sample failed. Progress: 0.7586206896551724.
+
+2024-06-21 02:09:30.919773: Service size is sufficient for job: one_day_sample (28654400380941/30000000000000). Restart the failed job.
+
+2024-06-21 02:12:31.099339: Job one_day_sample terminates.
+
+2024-06-21 05:21:40.829826: Job two_months_profiles terminates.
+
+2024-06-23 04:37:40.951416: Job All_CS2BPROF_2015_2018_rerun2024_6_17_13 terminates.
+
+2024-06-25 18:08:32.568842: Service starts.
+
+2024-06-25 18:08:35.032481: Received a request: {'jobId': 'one_day_sample_1', 'jobType': 'Query', 'dateRange': ['2015-08-01T00:00:00', '2015-08-01T23:59:59'], 'filterCriteria': {'sql': ''}}.
+
+2024-06-25 18:08:38.012973: A new job one_day_sample_1 is created successfully: {'jobId': 'one_day_sample_1', 'jobType': 'Query', 'dateRange': ['2015-08-01T00:00:00', '2015-08-01T23:59:59'], 'filterCriteria': {'sql': ''}, 'workingDir': '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_1', 'trackRecordsPaths': {'download_track_record': './jobsInfo/one_day_sample_1_downloading_task.json', 'parsing_track_record': './jobsInfo/one_day_sample_1_parsing_task.json'}, 'spaceLimit': 21990232555520}.
+
+2024-06-25 18:08:38.021816: job: one_day_sample_1 created.
+
+2024-06-25 18:09:01.882756: Service size is sufficient for job: one_day_sample_1 (28734625099828/30000000000000). Start running the job.
+
+2024-06-25 18:09:02.592271: Job one_day_sample_1 terminated. Now, restart it.
+
+2024-06-25 18:09:05.679553: A new job one_day_sample_1 is created successfully: {'jobId': 'one_day_sample_1', 'jobType': 'Query', 'dateRange': ['2015-08-01T00:00:00', '2015-08-01T23:59:59'], 'filterCriteria': {'sql': ''}, 'workingDir': '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_1', 'trackRecordsPaths': {'download_track_record': './jobsInfo/one_day_sample_1_downloading_task.json', 'parsing_track_record': './jobsInfo/one_day_sample_1_parsing_task.json'}, 'spaceLimit': 21990232555520}.
+
+2024-06-25 18:09:05.679695: job: one_day_sample_1 reloaded.
+
+2024-06-25 18:09:05.680258: Service size is sufficient for job: one_day_sample_1 (28734625099828/30000000000000). Start running the job.
+
+2024-06-25 18:09:35.691636: Job one_day_sample_1 terminates.
+
+2024-06-25 18:09:35.691772: Job one_day_sample_1 failed. Progress: 0.0.
+
+2024-06-25 18:09:35.692263: Service size is sufficient for job: one_day_sample_1 (28734527177472/30000000000000). Restart the failed job.
+
+2024-06-25 18:12:32.069299: Job one_day_sample_1 terminates.
+
+2024-06-25 18:12:35.857450: Job one_day_sample_1 terminates.
+
+2024-06-25 18:49:03.367694: Service starts.
+
+2024-06-25 18:49:34.400248: Received a request: {'jobId': 'one_day_sample_2', 'jobType': 'Query', 'dateRange': ['2015-08-01T00:00:00', '2015-08-01T23:59:59'], 'filterCriteria': {'sql': ''}}.
+
+2024-06-25 18:49:37.378107: A new job one_day_sample_2 is created successfully: {'jobId': 'one_day_sample_2', 'jobType': 'Query', 'dateRange': ['2015-08-01T00:00:00', '2015-08-01T23:59:59'], 'filterCriteria': {'sql': ''}, 'workingDir': '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2', 'trackRecordsPaths': {'download_track_record': './jobsInfo/one_day_sample_2_downloading_task.json', 'parsing_track_record': './jobsInfo/one_day_sample_2_parsing_task.json'}, 'spaceLimit': 21990232555520}.
+
+2024-06-25 18:49:37.378548: job: one_day_sample_2 created.
+
+2024-06-25 18:50:03.412929: Service size is sufficient for job: one_day_sample_2 (28734625099828/30000000000000). Start running the job.
+
+2024-06-25 18:50:04.022478: Job one_day_sample_2 terminated. Now, restart it.
+
+2024-06-25 18:50:06.899451: A new job one_day_sample_2 is created successfully: {'jobId': 'one_day_sample_2', 'jobType': 'Query', 'dateRange': ['2015-08-01T00:00:00', '2015-08-01T23:59:59'], 'filterCriteria': {'sql': ''}, 'workingDir': '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2', 'trackRecordsPaths': {'download_track_record': './jobsInfo/one_day_sample_2_downloading_task.json', 'parsing_track_record': './jobsInfo/one_day_sample_2_parsing_task.json'}, 'spaceLimit': 21990232555520}.
+
+2024-06-25 18:50:06.899596: job: one_day_sample_2 reloaded.
+
+2024-06-25 18:50:06.900278: Service size is sufficient for job: one_day_sample_2 (28734625099828/30000000000000). Start running the job.
+
+2024-06-25 18:50:36.904879: Job one_day_sample_2 terminates.
+
+2024-06-25 18:50:36.905046: Job one_day_sample_2 failed. Progress: 0.0.
+
+2024-06-25 18:50:36.905541: Service size is sufficient for job: one_day_sample_2 (28734500392416/30000000000000). Restart the failed job.
+
+2024-06-25 18:54:07.072982: Job one_day_sample_2 terminates.
+
+2024-06-25 18:54:33.644175: Job one_day_sample_2 terminates.
+
+2024-06-25 18:56:58.801075: Service starts.
+
+2024-06-25 18:57:01.805387: Received a request: {'jobId': 'one_day_sample_3', 'jobType': 'Query', 'dateRange': ['2015-08-01T00:00:00', '2015-08-01T23:59:59'], 'filterCriteria': {'sql': ''}}.
+
+2024-06-25 18:57:04.731538: A new job one_day_sample_3 is created successfully: {'jobId': 'one_day_sample_3', 'jobType': 'Query', 'dateRange': ['2015-08-01T00:00:00', '2015-08-01T23:59:59'], 'filterCriteria': {'sql': ''}, 'workingDir': '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_3', 'trackRecordsPaths': {'download_track_record': './jobsInfo/one_day_sample_3_downloading_task.json', 'parsing_track_record': './jobsInfo/one_day_sample_3_parsing_task.json'}, 'spaceLimit': 21990232555520}.
+
+2024-06-25 18:57:04.731935: job: one_day_sample_3 created.
+
+2024-06-25 18:57:28.832733: Service size is sufficient for job: one_day_sample_3 (28732274938932/30000000000000). Start running the job.
+
+2024-06-25 18:57:37.236137: Job one_day_sample_3 terminated. Now, restart it.
+
+2024-06-25 18:57:40.197569: A new job one_day_sample_3 is created successfully: {'jobId': 'one_day_sample_3', 'jobType': 'Query', 'dateRange': ['2015-08-01T00:00:00', '2015-08-01T23:59:59'], 'filterCriteria': {'sql': ''}, 'workingDir': '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_3', 'trackRecordsPaths': {'download_track_record': './jobsInfo/one_day_sample_3_downloading_task.json', 'parsing_track_record': './jobsInfo/one_day_sample_3_parsing_task.json'}, 'spaceLimit': 21990232555520}.
+
+2024-06-25 18:57:40.197741: job: one_day_sample_3 reloaded.
+
+2024-06-25 18:57:40.198473: Service size is sufficient for job: one_day_sample_3 (28732230329779/30000000000000). Start running the job.
+
+2024-06-25 18:57:58.851680: Job one_day_sample_3 terminates.
+
+2024-06-25 18:57:58.851794: Job one_day_sample_3 failed. Progress: 0.0.
+
+2024-06-25 18:57:58.852301: Service size is sufficient for job: one_day_sample_3 (28732150231520/30000000000000). Restart the failed job.
+
+2024-06-25 18:58:10.220592: Job one_day_sample_3 terminates.
+
+2024-06-25 18:58:10.220797: Job one_day_sample_3 failed. Progress: 0.0.
+
+2024-06-25 18:58:10.221383: Service size is sufficient for job: one_day_sample_3 (28732150231520/30000000000000). Restart the failed job.
+
+2024-06-25 18:58:40.236632: Job one_day_sample_3 terminates.
+
+2024-06-25 18:58:43.271208: Service starts.
+
+2024-06-25 18:59:42.775406: Service starts.
+
+2024-06-25 18:59:47.781674: Received a request: {'jobId': 'one_day_sample_4', 'jobType': 'Query', 'dateRange': ['2015-08-01T00:00:00', '2015-08-01T23:59:59'], 'filterCriteria': {'sql': ''}}.
+
+2024-06-25 18:59:50.727724: A new job one_day_sample_4 is created successfully: {'jobId': 'one_day_sample_4', 'jobType': 'Query', 'dateRange': ['2015-08-01T00:00:00', '2015-08-01T23:59:59'], 'filterCriteria': {'sql': ''}, 'workingDir': '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_4', 'trackRecordsPaths': {'download_track_record': './jobsInfo/one_day_sample_4_downloading_task.json', 'parsing_track_record': './jobsInfo/one_day_sample_4_parsing_task.json'}, 'spaceLimit': 21990232555520}.
+
+2024-06-25 18:59:50.728090: job: one_day_sample_4 created.
+
+2024-06-25 19:00:12.792359: Service size is sufficient for job: one_day_sample_4 (28732150231520/30000000000000). Start running the job.
+
+2024-06-25 19:06:43.138748: Job one_day_sample_4 terminates.
+

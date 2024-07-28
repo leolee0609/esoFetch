@@ -1,0 +1,9 @@
+{
+    "jobId": "one_day_sample",
+    "jobType": "Query",
+    "dateRange": [
+        "2015-08-01T00:00:00",
+        "2015-08-02T00:00:00"
+    ],
+    "filterCriteria": {}
+}

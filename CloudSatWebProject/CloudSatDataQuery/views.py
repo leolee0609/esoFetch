@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, reverse
 from .forms import JsonInputForm
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 import json
+import os
+
 
 
 def json_form(request):
@@ -24,9 +26,12 @@ def json_form(request):
                 data['filterCriteria'][code_type] = form.cleaned_data['code']
 
             # File saving remains the same
-            file_path = f'/Users/liding/Documents/Documents/uwaterloo/research/CloudSat/CloudSatWebProjects/backendMainProgramPython/requests/{data["jobId"]}.json'
+            file_path = f'../backendMainProgramPython/requests/{data["jobId"]}.json'
+            absolute_file_path = os.path.abspath(file_path)
+            print(absolute_file_path)
             with open(file_path, 'w') as json_file:
                 json.dump(data, json_file, indent=4)
+
 
             return redirect(reverse('job-success', kwargs={'job_id': data['jobId']}))
     else:
@@ -36,10 +41,15 @@ def json_form(request):
 
 def load_job_data(request, job_id):
     try:
-        filepath = f'/Users/liding/Documents/Documents/uwaterloo/research/CloudSat/CloudSatWebProjects/backendMainProgramPython/jobsInfo/{job_id}_parsing_task.json'
+        filepath = f'../backendMainProgramPython/jobsInfo/{job_id}_parsing_task.json'
         with open(filepath, 'r') as file:
             job_data = json.load(file)
         return render(request, 'CloudSatDataQuery/success.html', {'job_data': job_data})
     except FileNotFoundError:
         return HttpResponse("File not found.", status=404)
 
+def serve_json(request):
+    file_path = os.path.join(os.path.dirname(__file__), 'static/CloudSatDataQuery/CPRFootPrintCentPts.json')
+    with open(file_path, 'r') as file:
+        data = file.read()
+    return JsonResponse(data, safe=False)

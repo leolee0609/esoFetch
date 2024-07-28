@@ -1,0 +1,104 @@
+2024-06-25 18:49:34.400869: Successfully created Query job: one_day_sample_2.
+
+2024-06-25 18:50:03.413195: Start running a Query job: one_day_sample_2.
+
+2024-06-25 18:50:04.023716: Successfully created Query job: one_day_sample_2.
+
+2024-06-25 18:50:06.900590: Start running a Query job: one_day_sample_2.
+
+2024-06-25 18:50:06.901862: Failed to generate thumbnail for Query job: one_day_sample_2. The job doesn't have a thumbnail so far.
+
+2024-06-25 18:50:07.850522: Start downloading a new batch of data. Current progress: 0.0.
+
+2024-06-25 18:50:10.414030: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213123849_49258_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 8.490523338317871 MB of things downloaded. 
+Progress: 0.07142857142857142.
+
+2024-06-25 18:50:11.475681: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213173528_49261_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 17.047500610351562 MB of things downloaded. 
+Progress: 0.14285714285714285.
+
+2024-06-25 18:50:12.584996: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213223208_49264_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 25.569321632385254 MB of things downloaded. 
+Progress: 0.21428571428571427.
+
+2024-06-25 18:50:13.691860: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213010638_49251_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 34.126298904418945 MB of things downloaded. 
+Progress: 0.2857142857142857.
+
+2024-06-25 18:50:14.797975: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213042424_49253_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 42.542603492736816 MB of things downloaded. 
+Progress: 0.35714285714285715.
+
+2024-06-25 18:50:15.901823: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213060317_49254_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 51.00973701477051 MB of things downloaded. 
+Progress: 0.42857142857142855.
+
+2024-06-25 18:50:17.009231: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213155635_49260_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 59.5237455368042 MB of things downloaded. 
+Progress: 0.5.
+
+2024-06-25 18:50:17.860829: Continue the parsing task. 0.0 Completed: 0/14.
+
+2024-06-25 18:50:17.860884: The following files will be parsed and dumped into database: ['/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213123849_49258_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213173528_49261_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213223208_49264_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213010638_49251_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213042424_49253_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213060317_49254_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213155635_49260_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf'].
+
+2024-06-25 18:50:17.860905: Start parsing the batch of data with footprintPks: ['TAI_start', 'Profile_time'].
+
+2024-06-25 18:50:18.115336: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213191421_49262_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 68.00259780883789 MB of things downloaded. 
+Progress: 0.5714285714285714.
+
+2024-06-25 18:50:19.219613: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213141742_49259_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 76.46968364715576 MB of things downloaded. 
+Progress: 0.6428571428571429.
+
+2024-06-25 18:50:20.321225: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213205314_49263_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 84.88603591918945 MB of things downloaded. 
+Progress: 0.7142857142857143.
+
+2024-06-25 18:50:21.423464: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213092103_49256_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 93.40004444122314 MB of things downloaded. 
+Progress: 0.7857142857142857.
+
+2024-06-25 18:50:22.526068: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213105956_49257_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 101.94134902954102 MB of things downloaded. 
+Progress: 0.8571428571428571.
+
+2024-06-25 18:50:23.631503: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213074210_49255_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 110.4944200515747 MB of things downloaded. 
+Progress: 0.9285714285714286.
+
+2024-06-25 18:50:24.697629: Successful download: //Data/2B-GEOPROF.P1_R05/2015/213/2015213024531_49252_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf. 118.93025588989258 MB of things downloaded. 
+Progress: 1.0.
+
+2024-06-25 18:50:24.697831: Downloading is completed.
+
+2024-06-25 18:50:24.698158: Start downloading a new batch of data. Current progress: 1.0.
+
+2024-06-25 18:50:24.698198: Downloading task of the Query job: one_day_sample_2 is completed.
+
+2024-06-25 18:50:36.905729: Start running a Query job: one_day_sample_2.
+
+2024-06-25 18:50:36.906715: Continue the parsing task. 0.0 Completed: 0/14.
+
+2024-06-25 18:50:36.906793: The following files will be parsed and dumped into database: ['/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213123849_49258_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213173528_49261_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213223208_49264_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213010638_49251_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213042424_49253_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213060317_49254_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213155635_49260_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213191421_49262_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213141742_49259_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213205314_49263_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213092103_49256_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213105956_49257_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213074210_49255_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213024531_49252_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf'].
+
+2024-06-25 18:50:36.906819: Start parsing the batch of data with footprintPks: ['TAI_start', 'Profile_time'].
+
+2024-06-25 18:52:59.085249: Completed parsing the batch of data.
+
+2024-06-25 18:52:59.091312: Deleted the batch of files that were just parsed: ['/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213123849_49258_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213173528_49261_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213223208_49264_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213010638_49251_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213042424_49253_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213060317_49254_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213155635_49260_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf'].
+
+2024-06-25 18:52:59.091817: Start filtering a batch of data.
+
+2024-06-25 18:52:59.091902: Filtering completed for the batch.
+
+2024-06-25 18:53:09.102283: Continue the parsing task. 0.5 Completed: 7/14.
+
+2024-06-25 18:53:09.102365: The following files will be parsed and dumped into database: ['/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213191421_49262_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213141742_49259_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213205314_49263_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213092103_49256_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213105956_49257_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213074210_49255_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213024531_49252_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf'].
+
+2024-06-25 18:53:09.102418: Start parsing the batch of data with footprintPks: ['TAI_start', 'Profile_time'].
+
+2024-06-25 18:53:46.626924: Completed parsing the batch of data.
+
+2024-06-25 18:53:46.635007: Deleted the batch of files that were just parsed: ['/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213123849_49258_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213173528_49261_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213223208_49264_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213010638_49251_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213042424_49253_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213060317_49254_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213155635_49260_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213191421_49262_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213141742_49259_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213205314_49263_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213092103_49256_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213105956_49257_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213074210_49255_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213024531_49252_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf'].
+
+2024-06-25 18:53:46.635683: Start filtering a batch of data.
+
+2024-06-25 18:53:46.635808: Filtering completed for the batch.
+
+2024-06-25 18:53:49.212201: Completed parsing the batch of data.
+
+2024-06-25 18:53:49.212381: Deleted the batch of files that were just parsed: ['/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213191421_49262_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213141742_49259_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213205314_49263_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213092103_49256_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213105956_49257_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213074210_49255_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf', '/mnt/data/obs/CloudSatDataQueryJobs/one_day_sample_2/2015213024531_49252_CS_2B-GEOPROF_GRANULE_P1_R05_E06_F00.hdf'].
+
+2024-06-25 18:53:49.212855: Start filtering a batch of data.
+
+2024-06-25 18:53:49.212939: Filtering completed for the batch.
+

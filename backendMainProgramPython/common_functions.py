@@ -6,6 +6,20 @@ import shutil
 import json
 
 class commonFunctions:
+
+    def find_first_json_with_jobId(directory, search_string):
+        for filename in os.listdir(directory):
+            if filename.endswith('.json'):
+                file_path = os.path.join(directory, filename)
+                with open(file_path, 'r') as file:
+                    content = file.read()
+                    if search_string in content:
+                        try:
+                            jobinfo = json.loads(content)
+                            return jobinfo
+                        except json.JSONDecodeError:
+                            print(f"Error decoding JSON from file {file_path}")
+        return None
     def get_folder_size(folder_path):
         '''
         Return the size of a folder in bytes
